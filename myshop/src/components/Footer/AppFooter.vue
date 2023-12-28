@@ -4,8 +4,10 @@
       <section class="footer-section">
         <h3>MyShop</h3>
         <p>
-        Explorez notre large gamme de produits et profitez d'une expérience d'achat exceptionnelle.
+          Explorez notre large gamme de produits
+          et profitez d'une expérience d'achat exceptionnelle.
         </p>
+        <button @click="logout">Déconnexion</button>
       </section>
     </div>
 
@@ -15,8 +17,15 @@
   </footer>
 </template>
 
-<script setup>
-// Logique JavaScript si nécessaire
+<script>
+export default {
+  methods: {
+    logout() {
+      localStorage.removeItem('userToken'); // Supprimez le token JWT
+      this.$router.push({ name: 'Login' }); // Redirigez vers la page de connexion
+    },
+  },
+};
 </script>
 
 <style scoped>
