@@ -23,6 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .idea
-docker
-app
-readme.md
+/docker
+/app
+/readme.md
