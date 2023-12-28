@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .idea
+.fleet
 /docker
 /app
 /readme.md
