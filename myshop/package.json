@@ -10,14 +10,14 @@
     "lint": "eslint . --ext .js,.vue,.ts"
   },
   "dependencies": {
-    "vue": "^3.3.11",
     "@vitejs/plugin-vue": "^4.5.2",
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-vue": "^9.19.2",
     "vite": "^5.0.8",
-    "vite-plugin-eslint": "^1.8.1"
-  },
-  "devDependencies": {}
+    "vite-plugin-eslint": "^1.8.1",
+    "vue": "^3.3.11",
+    "vue-router": "4"
+  }
 }

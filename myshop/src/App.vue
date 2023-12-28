@@ -5,9 +5,7 @@ import Footer from './components/Footer/AppFooter.vue';
 
 <template>
     <Header/>
-    <main>
-        <!-- TODO: le contenu -->
-    </main>
+    <router-view/>
     <Footer/>
 </template>
 

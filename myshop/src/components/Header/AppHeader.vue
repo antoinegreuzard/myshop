@@ -1,7 +1,9 @@
 <template>
     <header class="header">
         <div class="logo-container">
-            <img :src="logoUrl" alt="MyShop Logo" class="logo"/>
+            <router-link :to="{ name: 'Home' }">
+                <img :src="logoUrl" alt="MyShop Logo" class="logo"/>
+            </router-link>
         </div>
         <div class="search-container">
             <input type="text" placeholder="Rechercher des produits..." class="search-input"/>
@@ -9,14 +11,12 @@
         </div>
         <nav class="navigation">
             <ul>
-                <li><a href="/categories">Catégories</a></li>
-                <li><a href="/promotions">Promotions</a></li>
-                <li><a href="/about">À propos</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><router-link to="/">Accueil</router-link></li>
+                <li><router-link :to="{ name: 'Categories' }">Catégories</router-link></li>
             </ul>
         </nav>
         <div class="user-actions">
-            <a href="/account" class="account-link">Mon Compte</a>
+            <router-link :to="{ name: 'Account' }" class="account-link">Mon Compte</router-link>
         </div>
     </header>
 </template>
