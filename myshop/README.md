@@ -1,10 +1,13 @@
-
 # MyShop Application E-commerce
 
 ## Description
-MyShop est une application e-commerce moderne conçue pour offrir une expérience utilisateur exceptionnelle et une gestion efficace des produits. Construite avec Vue.js et Vite.js, elle offre des performances rapides et une structure modulaire.
+
+MyShop est une application e-commerce moderne conçue pour offrir une expérience utilisateur exceptionnelle et une
+gestion efficace des produits. Construite avec Vue.js et Vite.js, elle offre des performances rapides et une structure
+modulaire.
 
 ## Prérequis
+
 - Node.js (version 14 ou plus)
 - pnpm (dernière version recommandée)
 
@@ -12,7 +15,7 @@ MyShop est une application e-commerce moderne conçue pour offrir une expérienc
 
 1. **Cloner le dépôt :**
    ```bash
-   git clone https://votre-repo-url.git
+   git clone https://github.com/antoinegreuzard/myshop.git
    cd myshop
    ```
 
