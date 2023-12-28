@@ -57,4 +57,4 @@ Les contributions sont les bienvenues. Veuillez suivre les conventions de codage
 
 ## Licence
 
-[Insérer ici la licence du projet]
+TODO: mettre la licence
