@@ -84,13 +84,13 @@ onMounted(async () => {
 
 <style scoped>
 .product-item {
-  border: 1px solid #ddd;
-  padding: 1em;
-  margin: 1em;
-  border-radius: 8px;
-}
+    border: 1px solid #ddd;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 8px;
 
-.product-item h3 {
-  margin-top: 0;
+    h3 {
+        margin-top: 0;
+    }
 }
 </style>

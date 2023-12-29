@@ -32,11 +32,11 @@ onMounted(async () => {
 
 <style scoped>
 .home {
-  text-align: center;
-  padding: 2rem;
-}
+    text-align: center;
+    padding: 2rem;
 
-.home h1, .home h2 {
-  margin-bottom: 1rem;
+    h1, h2 {
+        margin-bottom: 1rem;
+    }
 }
 </style>

@@ -70,26 +70,30 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+input {
+  &[type="text"],
+  &[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
 }
 
-button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #333;
-  color: white;
-  cursor: pointer;
-}
+button {
+  &[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
 
-button[type="submit"]:hover {
-  background-color: #555;
+    &:hover {
+      background-color: #555;
+    }
+  }
 }
 </style>

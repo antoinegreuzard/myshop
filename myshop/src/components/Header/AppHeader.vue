@@ -35,8 +35,10 @@ import logo from '../../assets/images/logo.png';
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo-container .logo {
-    height: 50px;
+.logo-container {
+    .logo {
+        height: 50px;
+    }
 }
 
 .search-container {
@@ -58,21 +60,23 @@ import logo from '../../assets/images/logo.png';
     cursor: pointer;
 }
 
-.navigation ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
+.navigation {
+    ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
 
-.navigation li a {
-    padding: 0.5em 1em;
-    text-decoration: none;
-    color: #333;
-}
+    li a {
+        padding: 0.5em 1em;
+        text-decoration: none;
+        color: #333;
 
-.navigation li a:hover {
-    text-decoration: underline;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .user-actions {

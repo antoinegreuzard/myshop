@@ -42,39 +42,47 @@ onMounted(() => {
   color: white;
   text-align: center;
   padding: 1em 0;
-}
 
-.footer-content {
-  display: flex;
-  justify-content: space-around;
-  padding: 1em;
-}
+  &-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 1em;
+  }
 
-.footer-section h3 {
-  margin-bottom: 0.5em;
-}
+  &-section {
+    h3 {
+      margin-bottom: 0.5em;
+    }
 
-.footer-section a {
-  color: white;
-}
+    a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
 
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-}
+      &:hover {
+        color: #646cff;
+      }
+    }
 
-.footer-section ul li a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
-}
+    ul {
+      list-style: none;
+      padding: 0;
 
-.footer-section ul li a:hover {
-  color: #646cff;
-}
+      li a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
 
-.footer-bottom {
-  margin-top: 1em;
-  font-size: 0.8em;
+        &:hover {
+          color: #646cff;
+        }
+      }
+    }
+  }
+
+  &-bottom {
+    margin-top: 1em;
+    font-size: 0.8em;
+  }
 }
 </style>

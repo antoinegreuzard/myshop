@@ -26,19 +26,14 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-    line-height: 1;
-}
-
-ol, ul {
-    list-style: none;
-}
-
-/* Utiliser une police de base cohérente et un arrière-plan */
-body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
+
+    ol, ul {
+        list-style: none;
+    }
 }
 
 /* Styles pour les en-têtes */
@@ -51,10 +46,10 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: #333;
     text-decoration: none;
-}
 
-a:hover {
-    color: #555;
+    &:hover {
+        color: #555;
+    }
 }
 
 /* Container principal pour un centrage cohérent */
