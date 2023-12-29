@@ -4,93 +4,49 @@
     <p v-if="product.description">{{ product.description }}</p>
     <p v-if="typeof product.price === 'number'">Prix : {{ product.price }} €</p>
 
-    <div v-if="categories.length">
+    <div v-if="product.categories.length">
       <h4>Catégories:</h4>
       <ul>
-        <li v-for="category in categories" :key="category.id">{{ category.name }}</li>
+        <li v-for="category in product.categories" :key="category.id">{{ category.name }}</li>
       </ul>
     </div>
 
-    <img v-if="productImageUrl" :src="productImageUrl" :alt="product.name" />
+    <img v-if="product.imageUrl" :src="product.imageUrl" :alt="product.name" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps } from 'vue';
+import { defineProps } from 'vue';
 
-const props = defineProps({
+defineProps({
   product: {
     type: Object,
     required: true,
   },
 });
-
-const categories = ref([]);
-const productImageUrl = ref('');
-
-onMounted(async () => {
-  const token = localStorage.getItem('userToken');
-
-  if (!token) {
-    return;
-  }
-
-  if (props.product.image) {
-    try {
-      const mediaObjectId = props.product.image.split('/').pop();
-      const response = await fetch(`http://localhost/api/media_objects/${mediaObjectId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur de réponse de l\'API pour l\'image');
-      }
-
-      const data = await response.json();
-      productImageUrl.value = `http://localhost/${data.contentUrl}`;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  }
-
-  if (props.product.categories && props.product.categories.length) {
-    await Promise.all(props.product.categories.map(async (categoryUrl) => {
-      const categoryId = categoryUrl.split('/').pop();
-
-      try {
-        const response = await fetch(`http://localhost/api/categories/${categoryId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('Erreur de réponse de l\'API');
-        }
-
-        const data = await response.json();
-        categories.value.push(data);
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    }));
-  }
-});
 </script>
 
 <style scoped lang="scss">
 .product-item {
+    margin: 0;
     border: 1px solid #ddd;
-    padding: 1em;
-    margin: 1em;
+    padding: 1rem;
     border-radius: 8px;
+    flex: 0 1 calc(33.333% - 2.8rem);
+
+    @media (max-width: 768px) {
+      flex: 0 1 100%;
+    }
 
     h3 {
-        margin-top: 0;
+      margin-top: 0;
+    }
+
+    img {
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      width: 80%;
+      height: auto;
     }
 }
 </style>
