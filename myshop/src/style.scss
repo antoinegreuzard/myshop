@@ -12,49 +12,49 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font: inherit;
-    vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: inherit;
+  vertical-align: baseline;
 }
 
 /* HTML5 display-role reset pour les éléments plus anciens */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-    display: block;
+  display: block;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
 
-    ol, ul {
-        list-style: none;
-    }
+  ol, ul {
+    list-style: none;
+  }
 }
 
 /* Styles pour les en-têtes */
 h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 1rem;
-    font-family: 'Georgia', serif;
+  margin-bottom: 1rem;
+  font-family: 'Georgia', serif;
 }
 
 /* Styles pour les liens */
 a {
-    color: #333;
-    text-decoration: none;
+  color: #333;
+  text-decoration: none;
 
-    &:hover {
-        color: #555;
-    }
+  &:hover {
+    color: #555;
+  }
 }
 
 /* Container principal pour un centrage cohérent */
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
 }
