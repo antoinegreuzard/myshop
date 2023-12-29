@@ -11,8 +11,7 @@
       </ul>
     </div>
 
-    <!-- Exemple d'image avec v-if -->
-    <img v-if="product.image" :src="product.image" alt="Image du produit" />
+    <img v-if="productImageUrl" :src="productImageUrl" :alt="product.name" />
   </div>
 </template>
 
@@ -27,11 +26,33 @@ const props = defineProps({
 });
 
 const categories = ref([]);
+const productImageUrl = ref('');
 
 onMounted(async () => {
-  if (props.product.categories && props.product.categories.length) {
-    const token = localStorage.getItem('userToken');
+  const token = localStorage.getItem('userToken');
 
+  if (props.product.image) {
+    try {
+      const mediaObjectId = props.product.image.split('/').pop();
+      const response = await fetch(`http://localhost/api/media_objects/${mediaObjectId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur de réponse de l\'API pour l\'image');
+      }
+
+      const data = await response.json();
+      productImageUrl.value = `http://localhost/${data.contentUrl}`;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  if (props.product.categories && props.product.categories.length) {
     await Promise.all(props.product.categories.map(async (categoryUrl) => {
       const categoryId = categoryUrl.split('/').pop();
 
