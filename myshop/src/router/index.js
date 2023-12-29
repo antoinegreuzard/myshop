@@ -3,9 +3,10 @@ import Home from '../views/HomeView.vue';
 import NotFound from '../views/NotFoundPage.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import getAuthenticationToken from '../api/getApiKey';
 
-function userIsAuthenticated() {
-  const token = localStorage.getItem('userToken');
+async function userIsAuthenticated() {
+  const token = await getAuthenticationToken();
   if (!token) return Promise.resolve(false);
 
   return fetch('http://localhost/api/users', {

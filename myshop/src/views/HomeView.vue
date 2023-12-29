@@ -23,6 +23,7 @@
 import { ref, onMounted, computed } from 'vue';
 import ProductItem from '../components/Products/ProductItem.vue';
 import Pagination from '../components/Products/PaginationPage.vue';
+import getAuthenticationToken from '../api/getApiKey';
 
 const products = ref([]);
 const currentPage = ref(1);
@@ -37,7 +38,7 @@ const paginatedProducts = computed(() => {
 const totalPages = computed(() => Math.ceil(products.value.length / itemsPerPage));
 
 const fetchProductDetails = async (product) => {
-  const token = localStorage.getItem('userToken');
+  const token = await getAuthenticationToken();
   if (!token) return product;
 
   let categories = [];
