@@ -38,8 +38,8 @@ const routes = [
     path: '/logout',
     name: 'Logout',
     beforeEnter: (to, from, next) => {
-      localStorage.removeItem('userToken'); // Supprimez le token JWT
-      next({ name: 'Login' }); // Redirigez vers la page de connexion
+      localStorage.removeItem('userToken');
+      next({ name: 'Login' });
     },
   },
 ];
