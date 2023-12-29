@@ -69,6 +69,9 @@ const register = async () => {
         email: registerData.value.email,
         password: registerData.value.password,
         fullName: registerData.value.fullName,
+        roles: [
+          'ROLE_USER',
+        ],
       }),
     });
 
