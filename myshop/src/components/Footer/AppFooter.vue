@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <div class="footer-content">
+    <div class="footer-content container">
       <section class="footer-section">
         <h3>MyShop</h3>
         <p>

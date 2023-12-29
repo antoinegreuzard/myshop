@@ -1,22 +1,24 @@
 <template>
     <header class="header">
-        <div class="logo-container">
-            <router-link :to="{ name: 'Home' }">
-                <img :src="logo" alt="MyShop Logo" class="logo"/>
-            </router-link>
-        </div>
-        <div class="search-container">
-            <input type="text" placeholder="Rechercher des produits..." class="search-input"/>
-            <button class="search-button">Recherche</button>
-        </div>
-        <nav class="navigation">
-            <ul>
-                <li><router-link to="/">Accueil</router-link></li>
-                <li><router-link :to="{ name: 'Categories' }">Catégories</router-link></li>
-            </ul>
-        </nav>
-        <div class="user-actions">
-            <router-link :to="{ name: 'Account' }" class="account-link">Mon Compte</router-link>
+        <div class="container">
+            <div class="logo-container">
+                <router-link :to="{ name: 'Home' }">
+                    <img :src="logo" alt="MyShop Logo" class="logo"/>
+                </router-link>
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Rechercher des produits..." class="search-input"/>
+                <button class="search-button">Recherche</button>
+            </div>
+            <nav class="navigation">
+                <ul>
+                    <li><router-link to="/">Accueil</router-link></li>
+                    <li><router-link :to="{ name: 'Categories' }">Catégories</router-link></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <router-link :to="{ name: 'Account' }" class="account-link">Mon Compte</router-link>
+            </div>
         </div>
     </header>
 </template>
@@ -27,12 +29,15 @@ import logo from '../../assets/images/logo.png';
 
 <style scoped lang="scss">
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 1em;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .logo-container {
