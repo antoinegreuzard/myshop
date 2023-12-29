@@ -30,7 +30,7 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .home {
     text-align: center;
     padding: 2rem;

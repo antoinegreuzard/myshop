@@ -53,7 +53,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .login-container {
   max-width: 400px;
   margin: 50px auto;

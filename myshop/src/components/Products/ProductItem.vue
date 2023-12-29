@@ -82,7 +82,7 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .product-item {
     border: 1px solid #ddd;
     padding: 1em;
