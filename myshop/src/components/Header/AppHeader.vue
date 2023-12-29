@@ -2,7 +2,7 @@
     <header class="header">
         <div class="logo-container">
             <router-link :to="{ name: 'Home' }">
-                <img :src="logoUrl" alt="MyShop Logo" class="logo"/>
+                <img :src="logo" alt="MyShop Logo" class="logo"/>
             </router-link>
         </div>
         <div class="search-container">
@@ -21,16 +21,8 @@
     </header>
 </template>
 
-<script>
+<script setup>
 import logo from '../../assets/images/logo.png';
-
-export default {
-  data() {
-    return {
-      logoUrl: logo,
-    };
-  },
-};
 </script>
 
 <style scoped>
