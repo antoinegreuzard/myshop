@@ -4,7 +4,23 @@ import NotFound from '../views/NotFoundPage.vue';
 import LoginView from '../views/LoginView.vue';
 
 function userIsAuthenticated() {
-  return localStorage.getItem('userToken') !== null;
+  const token = localStorage.getItem('userToken');
+  if (!token) return Promise.resolve(false);
+
+  return fetch('http://localhost/api/users', {
+    method: 'GET',
+    headers: new Headers({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return true;
+      }
+      throw new Error('Non-authenticated');
+    })
+    .catch(() => false);
 }
 
 const routes = [
@@ -50,9 +66,12 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!userIsAuthenticated()) {
+    const isAuthenticated = await userIsAuthenticated();
+    if (!isAuthenticated) {
+      localStorage.removeItem('userToken');
+      window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
       next({ name: 'Login' });
     } else {
       next();
