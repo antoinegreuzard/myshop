@@ -12,6 +12,7 @@
       </div>
       <button type="submit">Connexion</button>
     </form>
+    <router-link :to="{name: 'Register'}">Créer un compte</router-link>
   </div>
 </template>
 
