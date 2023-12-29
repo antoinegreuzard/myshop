@@ -44,14 +44,13 @@ onMounted(async () => {
         });
 
         if (!response.ok) {
-          // Gérez les erreurs de réponse ici
           throw new Error('Erreur de réponse de l\'API');
         }
 
         const data = await response.json();
         categories.value.push(data);
       } catch (error) {
-        console.error(error.message);
+        throw new Error(error.message);
       }
     }));
   }

@@ -25,7 +25,7 @@ onMounted(async () => {
     const data = await response.json();
     products.value = data['hydra:member'];
   } catch (error) {
-    console.error(error.message);
+    throw new Error(error.message);
   }
 });
 </script>
