@@ -31,6 +31,10 @@ const productImageUrl = ref('');
 onMounted(async () => {
   const token = localStorage.getItem('userToken');
 
+  if (!token) {
+    return;
+  }
+
   if (props.product.image) {
     try {
       const mediaObjectId = props.product.image.split('/').pop();
