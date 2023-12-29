@@ -39,6 +39,7 @@ const routes = [
     name: 'Logout',
     beforeEnter: (to, from, next) => {
       localStorage.removeItem('userToken');
+      window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
       next({ name: 'Login' });
     },
   },

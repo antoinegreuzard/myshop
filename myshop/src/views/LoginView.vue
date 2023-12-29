@@ -16,6 +16,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -42,8 +43,9 @@ export default {
         }
 
         const data = await response.json();
-        localStorage.setItem('userToken', data.token); // Stockez le token JWT
-        this.$router.push({ name: 'Home' }); // Redirigez vers la page d'accueil
+        localStorage.setItem('userToken', data.token);
+        window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: true } }));
+        this.$router.push({ name: 'Home' });
       } catch (error) {
         this.errorMessage = error.message || 'Une erreur est survenue';
       }

@@ -7,7 +7,7 @@
           Explorez notre large gamme de produits
           et profitez d'une expérience d'achat exceptionnelle.
         </p>
-        <button @click="logout">Déconnexion</button>
+        <router-link v-if="userToken" :to="{ name: 'Logout' }">Déconnexion</router-link>
       </section>
     </div>
 
@@ -17,15 +17,23 @@
   </footer>
 </template>
 
-<script>
-export default {
-  methods: {
-    logout() {
-      localStorage.removeItem('userToken'); // Supprimez le token JWT
-      this.$router.push({ name: 'Login' }); // Redirigez vers la page de connexion
-    },
-  },
-};
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const userToken = ref(localStorage.getItem('userToken') !== null);
+
+onMounted(() => {
+  const updateAuthStatus = (event) => {
+    userToken.value = event.detail.isLoggedIn;
+  };
+
+  window.addEventListener('auth-change', updateAuthStatus);
+
+  // Nettoyage lors de la destruction du composant
+  onUnmounted(() => {
+    window.removeEventListener('auth-change', updateAuthStatus);
+  });
+});
 </script>
 
 <style scoped>
@@ -44,6 +52,10 @@ export default {
 
 .footer-section h3 {
   margin-bottom: 0.5em;
+}
+
+.footer-section a {
+  color: white;
 }
 
 .footer-section ul {
