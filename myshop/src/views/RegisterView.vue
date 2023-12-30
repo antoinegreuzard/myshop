@@ -79,7 +79,6 @@ const register = async () => {
     await router.push('/login');
   } catch (error) {
     errorMessage.value = 'Erreur lors de l\'inscription.';
-    console.error(error.message);
   }
 };
 </script>
