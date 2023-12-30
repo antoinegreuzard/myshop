@@ -54,7 +54,7 @@ const fetchProductDetails = async (product) => {
             'Content-Type': 'application/json',
           },
         });
-        if (!response.ok) throw new Error('Erreur de réponse de l\'API pour les catégories');
+        if (!response.ok) return false;
         return await response.json();
       } catch (error) {
         throw new Error(error.message);
@@ -71,7 +71,7 @@ const fetchProductDetails = async (product) => {
           'Content-Type': 'application/json',
         },
       });
-      if (!response.ok) throw new Error('Erreur de réponse de l\'API pour l\'image');
+      if (!response.ok) return false;
       const imageData = await response.json();
       imageUrl = `http://localhost/${imageData.contentUrl}`;
     } catch (error) {
@@ -86,7 +86,7 @@ const fetchProducts = async () => {
   isLoading.value = true;
   try {
     const response = await fetch('http://localhost/api/products');
-    if (!response.ok) throw new Error('Erreur de chargement des produits');
+    if (!response.ok) return;
 
     const data = await response.json();
     const allProducts = data['hydra:member'];

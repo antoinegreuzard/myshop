@@ -39,7 +39,7 @@ export default {
         });
 
         if (!response.ok) {
-          throw new Error('Erreur de connexion');
+          return;
         }
 
         const data = await response.json();

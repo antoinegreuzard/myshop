@@ -73,7 +73,7 @@ const register = async () => {
     });
 
     if (!response.ok) {
-      throw new Error('Erreur lors de la création du compte');
+      return;
     }
 
     await router.push('/login');

@@ -24,7 +24,7 @@ const fetchProduct = async () => {
   const productId = route.params.id;
   try {
     const response = await fetch(`http://localhost/api/products/${productId}`);
-    if (!response.ok) throw new Error('Erreur de chargement du produit');
+    if (!response.ok) return;
 
     product.value = await response.json();
   } catch (error) {
