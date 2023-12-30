@@ -6,10 +6,6 @@
     </div>
 </template>
 
-<script setup>
-// Pas besoin de logique spécifique ici
-</script>
-
 <style scoped lang="scss">
 .not-found {
     text-align: center;

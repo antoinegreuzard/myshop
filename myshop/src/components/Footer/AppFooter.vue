@@ -29,7 +29,6 @@ onMounted(() => {
 
   window.addEventListener('auth-change', updateAuthStatus);
 
-  // Nettoyage lors de la destruction du composant
   onUnmounted(() => {
     window.removeEventListener('auth-change', updateAuthStatus);
   });
