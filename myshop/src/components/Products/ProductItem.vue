@@ -42,6 +42,11 @@ defineProps({
       margin-top: 0;
     }
 
+    h4 {
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+
     img {
       aspect-ratio: 4/3;
       object-fit: cover;
