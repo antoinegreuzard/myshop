@@ -7,6 +7,12 @@
       <h1>{{ product.name }}</h1>
       <p>{{ product.description }}</p>
       <p>Prix : {{ product.price }} €</p>
+      <ul v-if="product.categories">
+        <li v-for="category in product.categories" :key="category.id">
+          {{ category.name }}
+        </li>
+      </ul>
+      <img v-if="product.imageUrl" :src="product.imageUrl" alt="Image du produit">
     </div>
   </div>
 </template>
@@ -14,19 +20,76 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import getAuthenticationToken from '../api/getApiKey';
 
 const route = useRoute();
 const isLoading = ref(false);
 const product = ref({});
 
+const fetchCategory = async (categoryUrl, token) => {
+  const categoryId = categoryUrl.split('/').pop();
+  try {
+    const response = await fetch(`http://localhost/api/categories/${categoryId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const fetchImage = async (imageUrl, token) => {
+  const mediaObjectId = imageUrl.split('/').pop();
+  try {
+    const response = await fetch(`http://localhost/api/media_objects/${mediaObjectId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) return null;
+    const imageData = await response.json();
+    return `http://localhost/${imageData.contentUrl}`;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const fetchProductDetails = async (productData, token) => {
+  let categories = [];
+  let imageUrl = '';
+
+  if (productData.categories) {
+    categories = await Promise.all(
+      productData.categories.map(
+        (categoryUrl) => fetchCategory(categoryUrl, token),
+      ),
+    );
+  }
+
+  if (productData.image) {
+    imageUrl = await fetchImage(productData.image, token);
+  }
+
+  return { ...productData, categories: categories.filter(Boolean), imageUrl };
+};
+
 const fetchProduct = async () => {
   isLoading.value = true;
   const productId = route.params.id;
   try {
+    const token = await getAuthenticationToken();
+    if (!token) return;
+
     const response = await fetch(`http://localhost/api/products/${productId}`);
     if (!response.ok) return;
 
-    product.value = await response.json();
+    const productData = await response.json();
+    product.value = await fetchProductDetails(productData, token);
   } catch (error) {
     throw new Error(error.message);
   } finally {
