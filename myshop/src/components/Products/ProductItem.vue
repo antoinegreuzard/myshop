@@ -1,5 +1,5 @@
 <template>
-  <div class="product-item">
+  <router-link class="product-item" :to="{ name: 'Product', params: { id: product.id }}">
     <h3>{{ product.name }}</h3>
     <p v-if="product.description">{{ product.description }}</p>
     <p v-if="typeof product.price === 'number'">Prix : {{ product.price }} €</p>
@@ -12,7 +12,7 @@
     </div>
 
     <img v-if="product.imageUrl" :src="product.imageUrl" :alt="product.name" />
-  </div>
+  </router-link>
 </template>
 
 <script setup>

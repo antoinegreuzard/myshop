@@ -3,6 +3,7 @@ import Home from '../views/HomeView.vue';
 import NotFound from '../views/NotFoundPage.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import ProductView from '../views/ProductView.vue';
 
 function userIsAuthenticated() {
   const token = localStorage.getItem('userToken');
@@ -31,13 +32,13 @@ const routes = [
     component: Home,
   },
   {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
-    component: NotFound,
+    path: '/product/:id',
+    name: 'Product',
+    component: ProductView,
   },
   {
-    path: '/categories',
-    name: 'Categories',
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
     component: NotFound,
   },
   {

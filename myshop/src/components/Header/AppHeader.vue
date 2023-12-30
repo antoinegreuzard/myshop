@@ -13,7 +13,6 @@
             <nav class="navigation">
                 <ul>
                     <li><router-link :to="{ name: 'Home' }">Produits</router-link></li>
-                    <li><router-link :to="{ name: 'Categories' }">Catégories</router-link></li>
                 </ul>
             </nav>
             <div class="user-actions">
