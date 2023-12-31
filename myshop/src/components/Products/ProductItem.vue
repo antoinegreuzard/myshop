@@ -15,23 +15,10 @@
   </router-link>
 </template>
 
-<script>
-export default {
-  props: {
-    product: {
-      type: Object,
-      required: true,
-      default: () => ({
-        id: '',
-        name: '',
-        description: '',
-        price: 0,
-        categories: [],
-        imageUrl: '',
-      }),
-    },
-  },
-};
+<script setup>
+import { defineProps } from 'vue';
+
+const { product } = defineProps(['product']);
 </script>
 
 <style scoped lang="scss">

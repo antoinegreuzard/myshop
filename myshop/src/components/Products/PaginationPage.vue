@@ -27,29 +27,21 @@
   </nav>
 </template>
 
-<script>
-export default {
-  props: {
-    currentPage: {
-      type: Number,
-      required: true,
-    },
-    totalPages: {
-      type: Number,
-      required: true,
-    },
-  },
-  methods: {
-    selectPage(page) {
-      if (page !== this.currentPage) {
-        this.$emit('change-page', page);
-      }
-    },
-    changePage(page) {
-      const newPage = Math.max(1, Math.min(page, this.totalPages));
-      this.selectPage(newPage);
-    },
-  },
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps(['currentPage', 'totalPages']);
+const { emit } = defineEmits(['change-page']);
+
+const selectPage = (page) => {
+  if (page !== props.currentPage) {
+    emit('change-page', page);
+  }
+};
+
+const changePage = (page) => {
+  const newPage = Math.max(1, Math.min(page, props.totalPages));
+  selectPage(newPage);
 };
 </script>
 
