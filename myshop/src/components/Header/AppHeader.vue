@@ -6,17 +6,21 @@
                     <img :src="logo" alt="MyShop Logo" class="logo"/>
                 </router-link>
             </div>
-            <div class="search-container">
-                <input type="text" placeholder="Rechercher des produits..." class="search-input"/>
-                <button class="search-button">Recherche</button>
-            </div>
-            <nav class="navigation">
-                <ul>
-                    <li><router-link :to="{ name: 'Home' }">Produits</router-link></li>
-                </ul>
-            </nav>
-            <div class="user-actions">
-                <router-link :to="{ name: 'Account' }" class="account-link">Mon Compte</router-link>
+            <div class="column-right">
+              <div class="search-container">
+                  <input type="text" placeholder="Rechercher des produits..." class="search-input"/>
+                  <button class="search-button">Recherche</button>
+              </div>
+              <nav class="navigation">
+                  <ul>
+                      <li><router-link :to="{ name: 'Home' }">Produits</router-link></li>
+                  </ul>
+              </nav>
+              <div class="user-actions">
+                  <router-link :to="{ name: 'Account' }" class="account-link">
+                  Mon Compte
+                  </router-link>
+              </div>
             </div>
         </div>
     </header>
@@ -34,8 +38,15 @@ import logo from '../../assets/images/logo.png';
 
     > div {
         display: flex;
-        justify-content: space-between;
+        flex-direction: row;
         align-items: center;
+        justify-content: space-between;
+
+      > .column-right {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+      }
     }
 }
 
@@ -65,6 +76,7 @@ import logo from '../../assets/images/logo.png';
 }
 
 .navigation {
+    height: fit-content;
     ul {
         list-style: none;
         display: flex;
@@ -73,7 +85,7 @@ import logo from '../../assets/images/logo.png';
     }
 
     li a {
-        padding: 0.5em 1em;
+        padding: 0 1em;
         text-decoration: none;
         color: #333;
 
