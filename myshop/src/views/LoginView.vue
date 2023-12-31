@@ -16,41 +16,62 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      credentials: {
-        email: '',
-        password: '',
+<script setup>
+import { ref } from 'vue';
+
+const credentials = ref({
+  email: '',
+  password: '',
+});
+
+const errorMessage = ref('');
+
+const login = async () => {
+  try {
+    const response = await fetch('http://localhost/authentication_token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      errorMessage: '',
-    };
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await fetch('http://localhost/authentication_token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(this.credentials),
-        });
+      body: JSON.stringify(credentials.value),
+    });
 
-        if (!response.ok) {
-          return;
-        }
+    if (!response.ok) {
+      errorMessage.value = 'Une erreur est survenue';
+      return;
+    }
 
-        const data = await response.json();
-        localStorage.setItem('userToken', data.token);
-        window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: true } }));
-        this.$router.push({ name: 'Home' });
-      } catch (error) {
-        this.errorMessage = error.message || 'Une erreur est survenue';
-      }
-    },
-  },
+    const dataToken = await response.json();
+
+    const usersResponse = await fetch('http://localhost/api/users', {
+      headers: {
+        Authorization: `Bearer ${dataToken.token}`,
+      },
+    });
+
+    if (!usersResponse.ok) {
+      errorMessage.value = 'Une erreur est survenue';
+      return;
+    }
+
+    const usersData = await usersResponse.json();
+
+    const authenticatedUser = usersData['hydra:member'].find(
+      (user) => user.email === credentials.value.email,
+    );
+
+    if (!authenticatedUser) {
+      errorMessage.value = 'Utilisateur non trouvé';
+      return;
+    }
+
+    localStorage.setItem('myshop_userToken', dataToken.token);
+    localStorage.setItem('myshop_userId', authenticatedUser.id);
+    window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: true } }));
+    this.$router.push({ name: 'Home' });
+  } catch (error) {
+    errorMessage.value = error.message || 'Une erreur est survenue';
+  }
 };
 </script>
 

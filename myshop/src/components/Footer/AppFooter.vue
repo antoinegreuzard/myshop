@@ -20,7 +20,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const userToken = ref(localStorage.getItem('userToken') !== null);
+const userToken = ref(localStorage.getItem('myshop_userToken') !== null);
 
 onMounted(() => {
   const updateAuthStatus = (event) => {

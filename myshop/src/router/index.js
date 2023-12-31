@@ -4,9 +4,10 @@ import NotFound from '../views/NotFoundPage.vue';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ProductView from '../views/ProductView.vue';
+import AccountView from '../views/AccountView.vue';
 
 function userIsAuthenticated() {
-  const token = localStorage.getItem('userToken');
+  const token = localStorage.getItem('myshop_userToken');
   if (!token) return Promise.resolve(false);
 
   return fetch('http://localhost/api/users', {
@@ -44,7 +45,7 @@ const routes = [
   {
     path: '/account',
     name: 'Account',
-    component: NotFound,
+    component: AccountView,
     meta: { requiresAuth: true },
   },
   {
@@ -61,7 +62,7 @@ const routes = [
     path: '/logout',
     name: 'Logout',
     beforeEnter: (to, from, next) => {
-      localStorage.removeItem('userToken');
+      localStorage.removeItem('myshop_userToken');
       window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
       next({ name: 'Login' });
     },
@@ -77,7 +78,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     const isAuthenticated = await userIsAuthenticated();
     if (!isAuthenticated) {
-      localStorage.removeItem('userToken');
+      localStorage.removeItem('myshop_userToken');
       window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
       next({ name: 'Login' });
     } else {
