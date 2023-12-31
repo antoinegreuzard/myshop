@@ -113,7 +113,7 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 .product {
   margin-block: 3rem;
