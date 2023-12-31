@@ -97,7 +97,14 @@ const fetchProduct = async () => {
   }
 };
 
+const updatePageSEO = () => {
+  const productName = product.value.name || 'MyShop';
+  document.title = `${productName} - ${route.meta.title || 'MyShop'}`;
+  document.querySelector('meta[name="description"]').content = product.value.description;
+};
+
 onMounted(async () => {
   await fetchProduct();
+  updatePageSEO();
 });
 </script>
