@@ -1,18 +1,22 @@
 <template>
-  <div class="container">
-    <div v-if="isLoading">
-      <p>Chargement en cours...</p>
+  <div class="container product">
+    <div class="column image-column" v-if="product.imageUrl">
+      <img :src="product.imageUrl" alt="Image du produit">
     </div>
-    <div v-else>
-      <h1>{{ product.name }}</h1>
-      <p>{{ product.description }}</p>
-      <p>Prix : {{ product.price }} €</p>
-      <ul v-if="product.categories">
-        <li v-for="category in product.categories" :key="category.id">
-          {{ category.name }}
-        </li>
-      </ul>
-      <img v-if="product.imageUrl" :src="product.imageUrl" alt="Image du produit">
+    <div class="column content-column">
+      <div v-if="isLoading">
+        <p>Chargement en cours...</p>
+      </div>
+      <div v-else>
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+        <p>Prix : {{ product.price }} €</p>
+        <ul v-if="product.categories">
+          <li v-for="category in product.categories" :key="category.id">
+            {{ category.name }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -108,3 +112,34 @@ onMounted(async () => {
   updatePageSEO();
 });
 </script>
+
+<style lang="scss">
+
+.product {
+  margin-block: 3rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.column {
+  flex: 1;
+  padding: 0;
+}
+
+.image-column {
+  max-width: 50%;
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.content-column {
+  max-width: 50%;
+}
+</style>
