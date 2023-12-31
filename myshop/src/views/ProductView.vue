@@ -1,13 +1,13 @@
 <template>
   <div class="container product">
-    <div class="column image-column" v-if="product.imageUrl">
-      <img :src="product.imageUrl" alt="Image du produit">
+    <div v-if="isLoading">
+      <p>Chargement en cours...</p>
     </div>
-    <div class="column content-column">
-      <div v-if="isLoading">
-        <p>Chargement en cours...</p>
+    <div class="columns" v-else>
+      <div class="column image-column" v-if="product.imageUrl">
+        <img :src="product.imageUrl" alt="Image du produit">
       </div>
-      <div v-else>
+      <div class="column content-column">
         <h1>{{ product.name }}</h1>
         <p>{{ product.description }}</p>
         <p>Prix : {{ product.price }} €</p>
@@ -119,7 +119,7 @@ onMounted(async () => {
   margin-block: 3rem;
 }
 
-.container {
+.columns {
   display: flex;
   flex-direction: row;
   gap: 2rem;
