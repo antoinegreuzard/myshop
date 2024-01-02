@@ -2,8 +2,14 @@
   <div class="home container">
     <h1>Bienvenue sur MyShop</h1>
     <div class="search-container">
-      <input type="text" placeholder="Rechercher des produits..." class="search-input"/>
-      <button type="submit" class="search-button">Recherche</button>
+      <input
+      v-model="searchQuery"
+      type="text"
+      placeholder="Rechercher des produits..."
+      class="search-input"/>
+      <button @click="searchProducts" class="search-button">
+        Recherche
+      </button>
     </div>
     <div v-if="isLoading">
       <p>Chargement en cours...</p>
@@ -33,6 +39,7 @@ const products = ref([]);
 const currentPage = ref(1);
 const itemsPerPage = 9;
 const isLoading = ref(false);
+const searchQuery = ref('');
 
 const paginatedProducts = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
@@ -89,7 +96,19 @@ const fetchProductDetails = async (product) => {
 const fetchProducts = async () => {
   isLoading.value = true;
   try {
-    const response = await fetch('http://localhost/api/products');
+    const queryParams = {
+      name: searchQuery.value,
+      description: searchQuery.value,
+    };
+
+    const searchParams = new URLSearchParams();
+    Object.entries(queryParams).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        searchParams.append(key, value);
+      }
+    });
+
+    const response = await fetch(`http://localhost/api/products?${searchParams.toString()}`);
     if (!response.ok) return;
 
     const data = await response.json();
@@ -113,6 +132,11 @@ onMounted(async () => {
 
 const changePage = (newPage) => {
   currentPage.value = newPage;
+  fetchProducts();
+};
+
+const searchProducts = () => {
+  currentPage.value = 1;
   fetchProducts();
 };
 </script>
