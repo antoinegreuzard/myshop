@@ -1,16 +1,34 @@
 <template>
   <div class="home container">
     <h1>Bienvenue sur MyShop</h1>
-    <div class="search-container">
-      <input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Rechercher des produits..."
-        class="search-input"/>
-      <button @click="searchProducts" class="search-button">
-        Recherche
-      </button>
+    <div class="filters-container">
+      <input v-model.number="minPrice" type="number" placeholder="Prix min" />
+      <input v-model.number="maxPrice" type="number" placeholder="Prix max" />
+
+      <select v-model="sortOrder">
+        <option value="" selected>Ordre par titre des produits</option>
+        <option value="asc">Croissant</option>
+        <option value="desc">Décroissant</option>
+      </select>
     </div>
+    <div class="search-and-filter-container">
+      <div class="search-container">
+        <input
+          v-model="searchQuery"
+          type="text"
+          placeholder="Mots clés..."
+          class="search-input"/>
+      </div>
+      <div class="category-filter">
+        <select v-model="selectedCategory">
+          <option value="">Toutes les catégories</option>
+          <option v-for="category in categories" :key="category.id" :value="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button @click="searchProducts" class="search-button">Recherche</button>
     <div v-if="isLoading">
       <p>Chargement en cours...</p>
     </div>
@@ -40,6 +58,11 @@ const currentPage = ref(1);
 const itemsPerPage = 9;
 const isLoading = ref(false);
 const searchQuery = ref('');
+const minPrice = ref();
+const maxPrice = ref();
+const sortOrder = ref('');
+const categories = ref([]);
+const selectedCategory = ref('');
 
 const paginatedProducts = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
@@ -52,11 +75,11 @@ const fetchProductDetails = async (product) => {
   const token = await getAuthenticationToken();
   if (!token) return product;
 
-  let categories = [];
+  const productCategories = [];
   let imageUrl = '';
 
   if (product.categories) {
-    categories = await Promise.all(product.categories.map(async (categoryUrl) => {
+    productCategories.value = await Promise.all(product.categories.map(async (categoryUrl) => {
       const categoryId = categoryUrl.split('/')
         .pop();
       try {
@@ -94,42 +117,63 @@ const fetchProductDetails = async (product) => {
 
   return {
     ...product,
-    categories,
+    categories: productCategories,
     imageUrl,
   };
+};
+
+const fetchCategories = async () => {
+  const token = await getAuthenticationToken();
+
+  try {
+    const response = await fetch('http://localhost/api/categories', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      categories.value = data['hydra:member'];
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 const fetchProducts = async () => {
   isLoading.value = true;
   try {
-    const fetchedProducts = new Map();
+    const searchParams = new URLSearchParams();
 
     if (searchQuery.value) {
-      const responseByName = await fetch(`http://localhost/api/products?name=${searchQuery.value}`);
-      if (responseByName.ok) {
-        const dataByName = await responseByName.json();
-        dataByName['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
-      }
-
-      const responseByDescription = await fetch(`http://localhost/api/products?description=${searchQuery.value}`);
-      if (responseByDescription.ok) {
-        const dataByDescription = await responseByDescription.json();
-        dataByDescription['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
-      }
-    } else {
-      const response = await fetch('http://localhost/api/products');
-      if (response.ok) {
-        const data = await response.json();
-        data['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
-      }
+      searchParams.append('name', searchQuery.value);
+      searchParams.append('description', searchQuery.value);
     }
 
-    const uniqueProducts = Array.from(fetchedProducts.values());
+    if (minPrice.value && maxPrice.value) {
+      searchParams.append('price[gte]', minPrice.value);
+      searchParams.append('price[lte]', maxPrice.value);
+    } else if (minPrice.value) {
+      searchParams.append('price[gte]', minPrice.value);
+    } else if (maxPrice.value) {
+      searchParams.append('price[lte]', maxPrice.value);
+    }
 
+    if (sortOrder.value) {
+      searchParams.append('order[name]', sortOrder.value);
+    }
+
+    if (selectedCategory.value) {
+      searchParams.append('category', selectedCategory.value);
+    }
+
+    const response = await fetch(`http://localhost/api/products?${searchParams.toString()}`);
+    if (!response.ok) return;
+
+    const data = await response.json();
     products.value = await Promise.all(
-      uniqueProducts.map(
-        async (product) => fetchProductDetails(product),
-      ),
+      data['hydra:member'].map(async (product) => fetchProductDetails(product)),
     );
   } catch (error) {
     throw new Error(error.message);
@@ -139,6 +183,7 @@ const fetchProducts = async () => {
 };
 
 onMounted(async () => {
+  await fetchCategories();
   await fetchProducts();
 });
 
@@ -170,23 +215,42 @@ const searchProducts = () => {
     justify-content: flex-start;
   }
 
-  .search-container {
+  .search-and-filter-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
 
-    .search-input {
+  .search-button {
+    padding: 0.5em;
+    border: none;
+    border-radius: 4px;
+    background-color: #646cff;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 3rem;
+  }
+
+  .filters-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    input[type="number"] {
       padding: 0.5em;
       border: 1px solid #ccc;
-      border-radius: 4px 0 0 4px;
+      border-radius: 4px;
+      width: 150px;
     }
 
-    .search-button {
-      padding: 0.5em 1em;
-      border: none;
-      border-radius: 0 4px 4px 0;
-      background-color: #646cff;
-      color: white;
+    select {
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: white;
       cursor: pointer;
     }
   }
