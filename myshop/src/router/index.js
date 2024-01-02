@@ -80,8 +80,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const pageTitle = to.name || 'MyShop';
+  let pageTitle = to.name || 'MyShop';
   const pageDescription = to.meta.description || 'Description par défaut de la page.';
+
+  if (to.meta.title) {
+    pageTitle = to.meta.title;
+  }
 
   document.title = `${pageTitle} - MyShop`;
   document.querySelector('meta[name="description"]').content = pageDescription;
