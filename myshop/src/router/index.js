@@ -79,18 +79,21 @@ const routes = [
     path: '/admin/products',
     name: 'AdminProducts',
     component: ProductsEdit,
+    meta: { requiresAuth: true, title: 'Gestion des produits' },
   },
   {
     path: '/admin/categories',
     name: 'AdminCategories',
     component: CategoriesEdit,
-    meta: { title: 'Gestion des catégories' },
+    meta: { requiresAuth: true, title: 'Gestion des catégories' },
   },
   {
     path: '/admin/users',
     name: 'AdminUsers',
     component: UsersEdit,
+    meta: { requiresAuth: true, title: 'Gestion des utilisateurs' },
   },
+
 ];
 
 const router = createRouter({
