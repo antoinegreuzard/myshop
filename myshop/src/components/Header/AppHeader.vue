@@ -7,10 +7,6 @@
                 </router-link>
             </div>
             <div class="column-right">
-              <div class="search-container">
-                  <input type="text" placeholder="Rechercher des produits..." class="search-input"/>
-                  <button class="search-button">Recherche</button>
-              </div>
               <nav class="navigation">
                   <ul>
                       <li><router-link :to="{ name: 'Home' }">Produits</router-link></li>
@@ -54,25 +50,6 @@ import logo from '../../assets/images/logo.png';
     .logo {
         height: 50px;
     }
-}
-
-.search-container {
-    display: flex;
-}
-
-.search-input {
-    padding: 0.5em;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-}
-
-.search-button {
-    padding: 0.5em 1em;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    background-color: #646cff;
-    color: white;
-    cursor: pointer;
 }
 
 .navigation {
