@@ -18,6 +18,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const credentials = ref({
   email: '',
@@ -68,7 +71,7 @@ const login = async () => {
     localStorage.setItem('myshop_userToken', dataToken.token);
     localStorage.setItem('myshop_userId', authenticatedUser.id);
     window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: true } }));
-    this.$router.push({ name: 'Home' });
+    await router.push({ name: 'Home' });
   } catch (error) {
     errorMessage.value = error.message || 'Une erreur est survenue';
   }
