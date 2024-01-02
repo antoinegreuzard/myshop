@@ -1,5 +1,5 @@
 <template>
-  <div class="home container">
+  <main class="home container">
     <h1>Bienvenue sur MyShop</h1>
     <div class="filters-container">
       <input v-model.number="minPrice" type="number" placeholder="Prix min" />
@@ -44,7 +44,7 @@
       :current-page="currentPage"
       :total-pages="totalPages"
       @change-page="changePage"></Pagination>
-  </div>
+  </main>
 </template>
 
 <script setup>
