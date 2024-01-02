@@ -10,6 +10,21 @@
               <nav class="navigation">
                   <ul>
                       <li><router-link :to="{ name: 'Home' }">Produits</router-link></li>
+                      <li v-if="isAuthenticated">
+                        <router-link :to="{ name: 'AdminProducts' }">
+                          Gérer les Produits
+                        </router-link>
+                      </li>
+                      <li v-if="isAuthenticated">
+                        <router-link :to="{ name: 'AdminCategories' }">
+                          Gérer les Catégories
+                        </router-link>
+                      </li>
+                      <li v-if="isAuthenticated">
+                        <router-link :to="{ name: 'AdminUsers' }">
+                          Gérer les Utilisateurs
+                        </router-link>
+                      </li>
                   </ul>
               </nav>
               <div class="user-actions">
@@ -23,7 +38,25 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 import logo from '../../assets/images/logo.png';
+
+const isAuthenticated = ref(false);
+
+onMounted(() => {
+  isAuthenticated.value = !!localStorage.getItem('myshop_userToken');
+  window.addEventListener('auth-change', (event) => {
+    isAuthenticated.value = event.detail.isLoggedIn;
+  });
+});
+
+function handleAuthChange(event) {
+  isAuthenticated.value = event.detail.isLoggedIn;
+}
+
+onUnmounted(() => {
+  window.removeEventListener('auth-change', handleAuthChange);
+});
 </script>
 
 <style scoped lang="scss">
