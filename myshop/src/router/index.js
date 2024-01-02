@@ -8,7 +8,7 @@ import AccountView from '../views/AccountView.vue';
 
 function userIsAuthenticated() {
   const token = localStorage.getItem('myshop_userToken');
-  if (!token) return Promise.resolve(false);
+  if (!token) return Promise.resolve({ isAuthenticated: false });
 
   return fetch('http://localhost/api/users', {
     method: 'GET',
@@ -19,11 +19,11 @@ function userIsAuthenticated() {
   })
     .then((response) => {
       if (response.ok) {
-        return true;
+        return { isAuthenticated: true };
       }
       throw new Error('Non-authenticated');
     })
-    .catch(() => false);
+    .catch(() => ({ isAuthenticated: false }));
 }
 
 const routes = [
@@ -37,31 +37,31 @@ const routes = [
     path: '/product/:id',
     name: 'Product',
     component: ProductView,
-    meta: { title: 'Produit', description: 'Bienvenue sur notre site. Découvrez nos produits de haute qualité.' },
+    meta: { title: 'Produit', description: 'Découvrez nos produits.' },
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
-    meta: { title: 'Page non trouvée', description: 'Bienvenue sur notre site. Découvrez nos produits de haute qualité.' },
+    meta: { title: 'Page non trouvée', description: 'Page introuvable.' },
   },
   {
     path: '/account',
     name: 'Account',
     component: AccountView,
-    meta: { requiresAuth: true, title: 'Mon compte', description: 'Bienvenue sur notre site. Découvrez nos produits de haute qualité.' },
+    meta: { requiresAuth: true, title: 'Mon compte', description: 'Gérez votre compte.' },
   },
   {
     path: '/login',
     name: 'Login',
     component: LoginView,
-    meta: { title: 'Se connecter', description: 'Bienvenue sur notre site. Découvrez nos produits de haute qualité.' },
+    meta: { title: 'Se connecter', description: 'Connectez-vous à votre compte.' },
   },
   {
     path: '/register',
     name: 'Register',
     component: RegisterView,
-    meta: { title: 'Créer un compte', description: 'Bienvenue sur notre site. Découvrez nos produits de haute qualité.' },
+    meta: { title: 'Créer un compte', description: 'Créez un nouveau compte.' },
   },
   {
     path: '/logout',
@@ -80,26 +80,19 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  let pageTitle = to.name || 'MyShop';
-  let pageDescription = '';
-
-  if (to.meta.title) {
-    pageTitle = to.meta.title;
-  }
+  const pageTitle = to.name || 'MyShop';
+  const pageDescription = to.meta.description || 'Description par défaut de la page.';
 
   document.title = `${pageTitle} - MyShop`;
-
-  if (to.meta.description) {
-    pageDescription = to.meta.description;
-  } else {
-    pageDescription = 'Description par défaut de la page.';
-  }
-
   document.querySelector('meta[name="description"]').content = pageDescription;
 
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const isAuthenticated = await userIsAuthenticated();
-    if (!isAuthenticated) {
+  const authStatus = await userIsAuthenticated();
+  const isAuthRoute = to.name === 'Login' || to.name === 'Register';
+
+  if (authStatus.isAuthenticated && isAuthRoute) {
+    next({ name: 'Account' });
+  } else if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!authStatus.isAuthenticated) {
       localStorage.removeItem('myshop_userToken');
       window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
       next({ name: 'Login' });
