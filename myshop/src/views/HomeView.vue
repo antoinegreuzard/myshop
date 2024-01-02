@@ -3,10 +3,10 @@
     <h1>Bienvenue sur MyShop</h1>
     <div class="search-container">
       <input
-      v-model="searchQuery"
-      type="text"
-      placeholder="Rechercher des produits..."
-      class="search-input"/>
+        v-model="searchQuery"
+        type="text"
+        placeholder="Rechercher des produits..."
+        class="search-input"/>
       <button @click="searchProducts" class="search-button">
         Recherche
       </button>
@@ -16,7 +16,7 @@
     </div>
     <div v-else>
       <div v-if="paginatedProducts.length" class="products">
-        <ProductItem v-for="product in paginatedProducts" :key="product.id" :product="product" />
+        <ProductItem v-for="product in paginatedProducts" :key="product.id" :product="product"/>
       </div>
       <div v-else>
         <p>Aucun produit à afficher.</p>
@@ -57,7 +57,8 @@ const fetchProductDetails = async (product) => {
 
   if (product.categories) {
     categories = await Promise.all(product.categories.map(async (categoryUrl) => {
-      const categoryId = categoryUrl.split('/').pop();
+      const categoryId = categoryUrl.split('/')
+        .pop();
       try {
         const response = await fetch(`http://localhost/api/categories/${categoryId}`, {
           headers: {
@@ -74,7 +75,8 @@ const fetchProductDetails = async (product) => {
   }
 
   if (product.image) {
-    const mediaObjectId = product.image.split('/').pop();
+    const mediaObjectId = product.image.split('/')
+      .pop();
     try {
       const response = await fetch(`http://localhost/api/media_objects/${mediaObjectId}`, {
         headers: {
@@ -90,32 +92,47 @@ const fetchProductDetails = async (product) => {
     }
   }
 
-  return { ...product, categories, imageUrl };
+  return {
+    ...product,
+    categories,
+    imageUrl,
+  };
 };
 
 const fetchProducts = async () => {
   isLoading.value = true;
   try {
-    const queryParams = {
-      name: searchQuery.value,
-      description: searchQuery.value,
-    };
+    const fetchedProducts = new Map(); // Utilisation d'une Map pour gérer les doublons
 
-    const searchParams = new URLSearchParams();
-    Object.entries(queryParams).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== '') {
-        searchParams.append(key, value);
+    if (searchQuery.value) {
+      // Requête pour les produits par name
+      const responseByName = await fetch(`http://localhost/api/products?name=${searchQuery.value}`);
+      if (responseByName.ok) {
+        const dataByName = await responseByName.json();
+        dataByName['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
       }
-    });
 
-    const response = await fetch(`http://localhost/api/products?${searchParams.toString()}`);
-    if (!response.ok) return;
+      // Requête pour les produits par description
+      const responseByDescription = await fetch(`http://localhost/api/products?description=${searchQuery.value}`);
+      if (responseByDescription.ok) {
+        const dataByDescription = await responseByDescription.json();
+        dataByDescription['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
+      }
+    } else {
+      // Requête pour récupérer tous les produits si aucun terme de recherche n'est spécifié
+      const response = await fetch('http://localhost/api/products');
+      if (response.ok) {
+        const data = await response.json();
+        data['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
+      }
+    }
 
-    const data = await response.json();
-    const allProducts = data['hydra:member'];
+    // Transformer la Map en Array
+    const uniqueProducts = Array.from(fetchedProducts.values());
 
+    // Mise à jour des détails des produits
     products.value = await Promise.all(
-      allProducts.map(
+      uniqueProducts.map(
         async (product) => fetchProductDetails(product),
       ),
     );
@@ -147,7 +164,7 @@ const searchProducts = () => {
   padding: 2rem;
 
   h1 {
-      margin-bottom: 3rem;
+    margin-bottom: 3rem;
   }
 
   .products {
@@ -167,15 +184,15 @@ const searchProducts = () => {
       padding: 0.5em;
       border: 1px solid #ccc;
       border-radius: 4px 0 0 4px;
-  }
+    }
 
     .search-button {
-        padding: 0.5em 1em;
-        border: none;
-        border-radius: 0 4px 4px 0;
-        background-color: #646cff;
-        color: white;
-        cursor: pointer;
+      padding: 0.5em 1em;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      background-color: #646cff;
+      color: white;
+      cursor: pointer;
     }
   }
 }
