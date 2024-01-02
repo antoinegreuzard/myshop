@@ -37,7 +37,7 @@ const routes = [
     path: '/product/:id',
     name: 'Product',
     component: ProductView,
-    meta: { title: 'Produit', description: 'Découvrez nos produits.' },
+    meta: { title: 'Produit', description: 'Découvrez notre produit.' },
   },
   {
     path: '/:pathMatch(.*)*',
