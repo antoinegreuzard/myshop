@@ -5,6 +5,9 @@ import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ProductView from '../views/ProductView.vue';
 import AccountView from '../views/AccountView.vue';
+import ProductsEdit from '../views/admin/ProductsEdit.vue';
+import CategoriesEdit from '../views/admin/CategoriesEdit.vue';
+import UsersEdit from '../views/admin/UsersEdit.vue';
 
 function userIsAuthenticated() {
   const token = localStorage.getItem('myshop_userToken');
@@ -71,6 +74,21 @@ const routes = [
       window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
       next({ name: 'Login' });
     },
+  },
+  {
+    path: '/admin/products',
+    name: 'AdminProducts',
+    component: ProductsEdit,
+  },
+  {
+    path: '/admin/categories',
+    name: 'AdminCategories',
+    component: CategoriesEdit,
+  },
+  {
+    path: '/admin/users',
+    name: 'AdminUsers',
+    component: UsersEdit,
   },
 ];
 
