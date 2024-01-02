@@ -84,6 +84,7 @@ const routes = [
     path: '/admin/categories',
     name: 'AdminCategories',
     component: CategoriesEdit,
+    meta: { title: 'Gestion des catégories' },
   },
   {
     path: '/admin/users',
