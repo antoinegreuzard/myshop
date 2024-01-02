@@ -44,7 +44,7 @@ const apiBaseUrl = 'http://localhost/api/categories';
 let headers = {};
 
 const fetchCategories = async () => {
-  isLoading.value = true; // Set loading state
+  isLoading.value = true;
   try {
     const response = await fetch(apiBaseUrl, { headers });
     const data = await response.json();
