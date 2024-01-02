@@ -102,24 +102,21 @@ const fetchProductDetails = async (product) => {
 const fetchProducts = async () => {
   isLoading.value = true;
   try {
-    const fetchedProducts = new Map(); // Utilisation d'une Map pour gérer les doublons
+    const fetchedProducts = new Map();
 
     if (searchQuery.value) {
-      // Requête pour les produits par name
       const responseByName = await fetch(`http://localhost/api/products?name=${searchQuery.value}`);
       if (responseByName.ok) {
         const dataByName = await responseByName.json();
         dataByName['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
       }
 
-      // Requête pour les produits par description
       const responseByDescription = await fetch(`http://localhost/api/products?description=${searchQuery.value}`);
       if (responseByDescription.ok) {
         const dataByDescription = await responseByDescription.json();
         dataByDescription['hydra:member'].forEach((product) => fetchedProducts.set(product.id, product));
       }
     } else {
-      // Requête pour récupérer tous les produits si aucun terme de recherche n'est spécifié
       const response = await fetch('http://localhost/api/products');
       if (response.ok) {
         const data = await response.json();
@@ -127,10 +124,8 @@ const fetchProducts = async () => {
       }
     }
 
-    // Transformer la Map en Array
     const uniqueProducts = Array.from(fetchedProducts.values());
 
-    // Mise à jour des détails des produits
     products.value = await Promise.all(
       uniqueProducts.map(
         async (product) => fetchProductDetails(product),
