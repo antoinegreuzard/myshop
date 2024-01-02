@@ -30,8 +30,18 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps(['currentPage', 'totalPages']);
-const { emit } = defineEmits(['change-page']);
+const props = defineProps({
+  currentPage: {
+    type: Number,
+    required: true,
+  },
+  totalPages: {
+    type: Number,
+    required: true,
+  },
+});
+
+const emit = defineEmits(['change-page']);
 
 const selectPage = (page) => {
   if (page !== props.currentPage) {
