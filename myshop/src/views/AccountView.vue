@@ -16,7 +16,11 @@
           </div>
           <div class="form-group">
             <label for="password">Mot de passe:</label>
-            <input type="password" id="password" v-model="editedPassword" />
+            <input
+            type="password"
+            id="password"
+            v-model="editedPassword"
+            placeholder="Remplir pour modifier" />
           </div>
           <button type="submit">Enregistrer les modifications</button>
         </form>
