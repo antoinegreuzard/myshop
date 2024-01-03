@@ -42,8 +42,6 @@ const product = ref({});
 // Création de la constante productUrl
 const productUrl = computed(() => `${window.location.origin}${route.fullPath}`);
 
-console.log(productUrl.value);
-
 // Fonctions pour récupérer les détails des catégories et de l'image du produit
 const fetchCategory = async (categoryUrl, token) => {
   const categoryId = categoryUrl.split('/').pop();
@@ -92,6 +90,13 @@ const fetchProductDetails = async (productData, token) => {
 
   if (productData.image) {
     imageUrl = await fetchImage(productData.image, token);
+  }
+
+  // Enregistrement de l'historique des produits visités
+  const visitedProducts = JSON.parse(localStorage.getItem('visitedProducts') || '[]');
+  if (!visitedProducts.some((p) => p.id === productData.id)) {
+    visitedProducts.push({ id: productData.id, name: productData.name });
+    localStorage.setItem('visitedProducts', JSON.stringify(visitedProducts));
   }
 
   return { ...productData, categories: categories.filter(Boolean), imageUrl };

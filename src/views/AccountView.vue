@@ -37,12 +37,16 @@
           <button type="submit">Enregistrer les modifications</button>
         </form>
       </div>
+
+      <!-- Ajout du composant d'historique des produits -->
+      <ProductHistory />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import ProductHistory from '../components/Account/ProductHistory.vue';
 
 // Déclaration des variables réactives pour le stockage des informations de l'utilisateur
 const username = ref('');
