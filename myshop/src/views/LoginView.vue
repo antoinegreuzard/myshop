@@ -1,6 +1,11 @@
 <template>
   <div class="login-container">
     <h1>Connexion</h1>
+
+    <div v-if="loading" class="loading">Chargement...</div>
+    <div v-if="message" class="message">{{ message }}</div>
+    <div v-if="error" class="error">{{ error }}</div>
+
     <form @submit.prevent="login">
       <div class="form-group">
         <label for="username">Email de l'utilisateur:</label>
@@ -12,6 +17,7 @@
       </div>
       <button type="submit">Connexion</button>
     </form>
+
     <router-link :to="{name: 'Register'}">Créer un compte</router-link>
   </div>
 </template>
@@ -27,9 +33,15 @@ const credentials = ref({
   password: '',
 });
 
-const errorMessage = ref('');
+const loading = ref(false);
+const message = ref('');
+const error = ref('');
 
 const login = async () => {
+  loading.value = true;
+  message.value = '';
+  error.value = '';
+
   try {
     const response = await fetch('http://localhost/authentication_token', {
       method: 'POST',
@@ -40,7 +52,7 @@ const login = async () => {
     });
 
     if (!response.ok) {
-      errorMessage.value = 'Une erreur est survenue';
+      error.value = 'Une erreur est survenue lors de la connexion';
       return;
     }
 
@@ -53,7 +65,7 @@ const login = async () => {
     });
 
     if (!usersResponse.ok) {
-      errorMessage.value = 'Une erreur est survenue';
+      error.value = 'Une erreur est survenue lors de la récupération des utilisateurs';
       return;
     }
 
@@ -64,16 +76,19 @@ const login = async () => {
     );
 
     if (!authenticatedUser) {
-      errorMessage.value = 'Utilisateur non trouvé';
+      error.value = 'Utilisateur non trouvé';
       return;
     }
 
     localStorage.setItem('myshop_userToken', dataToken.token);
     localStorage.setItem('myshop_userId', authenticatedUser.id);
     window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: true } }));
+    message.value = 'Connexion réussie';
     await router.push({ name: 'Home' });
-  } catch (error) {
-    errorMessage.value = error.message || 'Une erreur est survenue';
+  } catch (e) {
+    error.value = e.message || 'Une erreur est survenue';
+  } finally {
+    loading.value = false;
   }
 };
 </script>
@@ -95,30 +110,40 @@ label {
   margin-bottom: 5px;
 }
 
-input {
-  &[type="text"],
-  &[type="password"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #555;
   }
 }
 
-button {
-  &[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
+.loading {
+  color: #007bff;
+}
 
-    &:hover {
-      background-color: #555;
-    }
-  }
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.message {
+  color: green;
+  margin-top: 10px;
 }
 </style>
