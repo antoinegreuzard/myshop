@@ -205,10 +205,12 @@ const uploadImage = async () => {
   const formData = new FormData();
   formData.append('file', selectedFile.value);
 
+  const token = await getAuthenticationToken();
+
   try {
     const response = await fetch(imageApiUrl, {
       method: 'POST',
-      headers,
+      headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
 
