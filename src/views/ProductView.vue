@@ -1,16 +1,22 @@
 <template>
+  <!-- Conteneur principal pour l'affichage des détails du produit -->
   <div class="container product">
+    <!-- Affichage du message de chargement -->
     <div v-if="isLoading">
       <p>Chargement en cours...</p>
     </div>
+    <!-- Contenu principal affiché une fois le chargement terminé -->
     <div class="columns" v-else>
+      <!-- Colonne pour l'image du produit -->
       <div class="column image-column" v-if="product.imageUrl">
         <img :src="product.imageUrl" alt="Image du produit">
       </div>
+      <!-- Colonne pour le contenu textuel du produit -->
       <div class="column content-column">
         <h1>{{ product.name }}</h1>
         <p>{{ product.description }}</p>
         <p>Prix : {{ product.price }} €</p>
+        <!-- Liste des catégories du produit -->
         <ul v-if="product.categories">
           <li v-for="category in product.categories" :key="category.id">
             {{ category.name }}
@@ -26,10 +32,12 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import getAuthenticationToken from '../api/getApiKey';
 
+// Utilisation du routeur Vue pour accéder aux paramètres de la route
 const route = useRoute();
 const isLoading = ref(false);
 const product = ref({});
 
+// Fonctions pour récupérer les détails des catégories et de l'image du produit
 const fetchCategory = async (categoryUrl, token) => {
   const categoryId = categoryUrl.split('/').pop();
   try {
@@ -82,6 +90,7 @@ const fetchProductDetails = async (productData, token) => {
   return { ...productData, categories: categories.filter(Boolean), imageUrl };
 };
 
+// Fonction pour récupérer les détails complets du produit
 const fetchProduct = async () => {
   isLoading.value = true;
   const productId = route.params.id;
@@ -101,12 +110,14 @@ const fetchProduct = async () => {
   }
 };
 
+// Fonction pour mettre à jour les informations SEO de la page
 const updatePageSEO = () => {
   const productName = product.value.name || 'MyShop';
   document.title = `${productName} - ${route.meta.title || 'MyShop'}`;
   document.querySelector('meta[name="description"]').content = product.value.description;
 };
 
+// Récupération des détails du produit lors du montage du composant
 onMounted(async () => {
   await fetchProduct();
   updatePageSEO();

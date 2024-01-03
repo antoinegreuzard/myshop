@@ -1,16 +1,23 @@
 <template>
+  <!-- Lien de navigation pour chaque produit avec des informations détaillées -->
   <router-link class="product-item" :to="{ name: 'Product', params: { id: product.id }}">
+    <!-- Nom du produit -->
     <h3>{{ product.name }}</h3>
+    <!-- Description du produit, affichée seulement si elle existe -->
     <p v-if="product.description">{{ product.description }}</p>
+    <!-- Affiche le prix si c'est un nombre -->
     <p v-if="typeof product.price === 'number'">Prix : {{ product.price }} €</p>
 
+    <!-- Liste des catégories, affichée seulement si le produit en a -->
     <div v-if="product.categories.length">
       <h4>Catégories:</h4>
       <ul>
+        <!-- Énumération des catégories -->
         <li v-for="category in product.categories" :key="category.id">{{ category.name }}</li>
       </ul>
     </div>
 
+    <!-- Image du produit, affichée seulement si l'URL de l'image existe -->
     <img v-if="product.imageUrl" :src="product.imageUrl" :alt="product.name" />
   </router-link>
 </template>
@@ -18,6 +25,7 @@
 <script setup>
 import { defineProps } from 'vue';
 
+// Réception de l'objet 'product' comme propriété
 const { product } = defineProps(['product']);
 </script>
 

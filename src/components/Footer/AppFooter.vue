@@ -1,16 +1,20 @@
 <template>
+  <!-- Pied de page avec un design centré et des informations sur la boutique -->
   <footer class="footer">
     <div class="footer-content container">
+      <!-- Section du pied de page avec titre et description de la boutique -->
       <section class="footer-section">
         <h3>MyShop</h3>
         <p>
           Explorez notre large gamme de produits
           et profitez d'une expérience d'achat exceptionnelle.
         </p>
+        <!-- Lien de déconnexion affiché uniquement si l'utilisateur est authentifié -->
         <router-link v-if="isAuthenticated" :to="{ name: 'Logout' }">Déconnexion</router-link>
       </section>
     </div>
 
+    <!-- Zone inférieure du pied de page avec droits d'auteur -->
     <div class="footer-bottom">
       <p>&copy; 2023 MyShop - Tous droits réservés.</p>
     </div>
@@ -20,16 +24,20 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
+// Référence réactive pour suivre le statut d'authentification de l'utilisateur
 const isAuthenticated = ref(false);
 
+// Fonction pour mettre à jour le statut d'authentification
 const updateAuthStatus = (event) => {
   isAuthenticated.value = event.detail.isLoggedIn;
 };
 
+// Écouteur d'événement pour les changements d'authentification
 onMounted(() => {
   window.addEventListener('auth-change', updateAuthStatus);
 });
 
+// Suppression de l'écouteur d'événement lors du démontage du composant
 onUnmounted(() => {
   window.removeEventListener('auth-change', updateAuthStatus);
 });

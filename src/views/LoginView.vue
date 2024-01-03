@@ -1,23 +1,30 @@
 <template>
+  <!-- Conteneur principal pour la page de connexion -->
   <div class="login-container">
     <h1>Connexion</h1>
 
+    <!-- Affichage des messages de chargement, d'erreur ou de réussite -->
     <div v-if="loading" class="loading">Chargement...</div>
     <div v-if="message" class="message">{{ message }}</div>
     <div v-if="error" class="error">{{ error }}</div>
 
+    <!-- Formulaire de connexion -->
     <form @submit.prevent="login">
+      <!-- Champ pour l'email de l'utilisateur -->
       <div class="form-group">
         <label for="username">Email de l'utilisateur:</label>
         <input type="text" id="username" v-model="credentials.email" required>
       </div>
+      <!-- Champ pour le mot de passe -->
       <div class="form-group">
         <label for="password">Mot de passe:</label>
         <input type="password" id="password" v-model="credentials.password" required>
       </div>
+      <!-- Bouton pour soumettre le formulaire -->
       <button type="submit">Connexion</button>
     </form>
 
+    <!-- Lien vers la page d'inscription -->
     <router-link :to="{name: 'Register'}">Créer un compte</router-link>
   </div>
 </template>
@@ -26,8 +33,10 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+// Utilisation du routeur Vue pour la navigation
 const router = useRouter();
 
+// Déclaration des variables réactives pour le stockage des informations de connexion
 const credentials = ref({
   email: '',
   password: '',
@@ -37,12 +46,14 @@ const loading = ref(false);
 const message = ref('');
 const error = ref('');
 
+// Fonction pour gérer la connexion de l'utilisateur
 const login = async () => {
   loading.value = true;
   message.value = '';
   error.value = '';
 
   try {
+    // Tentative de connexion à l'API d'authentification
     const response = await fetch('http://localhost/authentication_token', {
       method: 'POST',
       headers: {
@@ -80,6 +91,7 @@ const login = async () => {
       return;
     }
 
+    // Stockage du token et de l'ID de l'utilisateur, puis redirection
     localStorage.setItem('myshop_userToken', dataToken.token);
     localStorage.setItem('myshop_userId', authenticatedUser.id);
     window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: true } }));

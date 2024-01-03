@@ -1,16 +1,18 @@
 <template>
+  <!-- Conteneur principal pour la gestion des produits -->
   <div class="product-management container">
     <h1>Gestion des Produits</h1>
 
-    <!-- Indicateur de chargement -->
+    <!-- Indicateurs de chargement et messages d'erreur ou de succès -->
     <div v-if="isLoading" class="loading">Chargement des produits...</div>
     <div v-if="message" class="message">{{ message }}</div>
     <div v-if="error" class="error">{{ error }}</div>
 
-    <!-- Liste des produits -->
+    <!-- Affichage de la liste des produits -->
     <div v-else class="products-list">
       <h2>Produits</h2>
       <ul>
+        <!-- Boucle sur chaque produit pour affichage avec boutons de gestion -->
         <li v-for="product in products" :key="product.id">
           {{ product.name }} - {{ product.description }} - {{ product.price }}€
           <button @click="editProduct(product)">Modifier</button>
@@ -19,10 +21,11 @@
       </ul>
     </div>
 
-    <!-- Formulaire d'ajout/modification de produit -->
+    <!-- Formulaire pour ajouter ou modifier un produit -->
     <div class="product-form">
       <h2>{{ isEditMode ? 'Modifier le Produit' : 'Ajouter un Produit' }}</h2>
       <form @submit.prevent="isEditMode ? updateProduct() : addProduct()">
+        <!-- Champs du formulaire pour les détails du produit -->
         <label for="name">Nom du Produit</label>
         <input id="name" type="text" v-model="currentProduct.name" required>
 
@@ -68,6 +71,7 @@
 import { reactive, ref, onMounted } from 'vue';
 import getAuthenticationToken from '../../api/getApiKey';
 
+// État réactif pour stocker les produits, catégories, images et l'état du formulaire
 const products = ref([]);
 const categories = ref([]);
 const images = ref([]);
@@ -80,11 +84,13 @@ const isLoading = ref(false);
 const message = ref('');
 const error = ref('');
 
+// URL de base pour les requêtes API
 const apiBaseUrl = 'http://localhost/api/products';
 const categoryApiUrl = 'http://localhost/api/categories';
 const imageApiUrl = 'http://localhost/api/media_objects';
 let headers = {};
 
+// Fonctions pour récupérer et manipuler les données des produits
 const fetchProducts = async () => {
   isLoading.value = true;
   try {
@@ -231,6 +237,7 @@ const getImageUrl = (imageId) => {
   return image ? `http://localhost${image.contentUrl}` : '';
 };
 
+// Initialisation lors du montage du composant
 onMounted(initialize);
 </script>
 

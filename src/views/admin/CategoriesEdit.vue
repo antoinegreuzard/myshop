@@ -1,25 +1,28 @@
 <template>
+  <!-- Conteneur principal pour la gestion des catégories -->
   <div class="category-management container">
     <h1>Gestion des Catégories</h1>
 
-    <!-- Indicateurs de chargement et messages -->
+    <!-- Affichage des indicateurs de chargement et des messages d'erreur ou de succès -->
     <div v-if="isLoading" class="loading">Chargement des catégories...</div>
     <div v-if="error" class="error">{{ error }}</div>
     <div v-if="message" class="message">{{ message }}</div>
 
-    <!-- Liste des Catégories -->
+    <!-- Affichage de la liste des catégories -->
     <div v-else class="categories-list">
       <h2>Catégories</h2>
       <ul>
+        <!-- Boucle sur chaque catégorie pour affichage -->
         <li v-for="category in categories" :key="category.id">
           {{ category.name }}
+          <!-- Boutons pour modifier et supprimer une catégorie -->
           <button @click="editCategory(category)">Modifier</button>
           <button @click="deleteCategory(category.id)">Supprimer</button>
         </li>
       </ul>
     </div>
 
-    <!-- Formulaire d'Ajout/Modification de Catégorie -->
+    <!-- Formulaire pour ajouter ou modifier une catégorie -->
     <div class="category-form">
       <h2>{{ isEditMode ? 'Modifier la Catégorie' : 'Ajouter une Catégorie' }}</h2>
       <form @submit.prevent="isEditMode ? updateCategory() : addCategory()">
@@ -38,16 +41,18 @@
 import { reactive, ref, onMounted } from 'vue';
 import getAuthenticationToken from '../../api/getApiKey';
 
-const categories = ref([]);
-const currentCategory = reactive({ id: null, name: '' });
-const isEditMode = ref(false);
-const isLoading = ref(false);
-const error = ref('');
-const message = ref('');
+// Initialisation des états réactifs
+const categories = ref([]); // Stocke la liste des catégories
+const currentCategory = reactive({ id: null, name: '' }); // Catégorie courante pour le formulaire
+const isEditMode = ref(false); // Indique si le formulaire est en mode édition
+const isLoading = ref(false); // Indicateur de chargement
+const error = ref(''); // Message d'erreur
+const message = ref(''); // Message de succès
 
-const apiBaseUrl = 'http://localhost/api/categories';
-let headers = {};
+const apiBaseUrl = 'http://localhost/api/categories'; // URL de base de l'API
+let headers = {}; // En-têtes pour les requêtes API
 
+// Fonctions pour interagir avec l'API et gérer les catégories
 const fetchCategories = async () => {
   isLoading.value = true;
   try {
@@ -131,6 +136,7 @@ const deleteCategory = async (id) => {
   }
 };
 
+// Fonction appelée lors du montage du composant pour initialiser les données
 onMounted(initialize);
 </script>
 

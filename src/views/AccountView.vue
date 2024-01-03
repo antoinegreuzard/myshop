@@ -1,19 +1,29 @@
 <template>
+  <!-- Conteneur principal pour la gestion du compte utilisateur -->
   <div class="container">
     <div class="account">
       <h2>User Account</h2>
+
+      <!-- Message de chargement -->
       <div v-if="loading" class="loading-message">Chargement en cours...</div>
+
+      <!-- Formulaire de mise à jour du compte utilisateur -->
       <div v-else>
         <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
         <form @submit.prevent="updateAccount">
+          <!-- Champ pour le nom complet de l'utilisateur -->
           <div class="form-group">
             <label for="username">Prénom & Nom:</label>
             <input type="text" id="username" v-model="editedUsername" />
           </div>
+
+          <!-- Champ pour l'email -->
           <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" v-model="editedEmail" />
           </div>
+
+          <!-- Champ pour le mot de passe -->
           <div class="form-group">
             <label for="password">Mot de passe:</label>
             <input
@@ -22,6 +32,8 @@
             v-model="editedPassword"
             placeholder="Remplir pour modifier" />
           </div>
+
+          <!-- Bouton pour soumettre les modifications -->
           <button type="submit">Enregistrer les modifications</button>
         </form>
       </div>
@@ -32,6 +44,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+// Déclaration des variables réactives pour le stockage des informations de l'utilisateur
 const username = ref('');
 const email = ref('');
 const editedUsername = ref('');
@@ -40,10 +53,12 @@ const editedPassword = ref('');
 const errorMessage = ref(null);
 const loading = ref(true);
 
+// Fonction pour gérer les erreurs
 function handleError(message) {
   errorMessage.value = message;
 }
 
+// Fonction pour récupérer les détails du compte utilisateur
 async function fetchAccountDetails() {
   try {
     const userId = localStorage.getItem('myshop_userId');
@@ -78,6 +93,7 @@ async function fetchAccountDetails() {
   }
 }
 
+// Fonction pour mettre à jour le compte utilisateur
 async function updateAccount() {
   try {
     const userId = localStorage.getItem('myshop_userId');
@@ -110,6 +126,7 @@ async function updateAccount() {
   }
 }
 
+// Récupération des détails du compte lors du montage du composant
 onMounted(fetchAccountDetails);
 </script>
 

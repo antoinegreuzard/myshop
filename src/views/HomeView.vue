@@ -1,6 +1,9 @@
 <template>
+  <!-- Conteneur principal de la page d'accueil -->
   <main class="home container">
     <h1>Bienvenue sur MyShop</h1>
+
+    <!-- Conteneurs pour les filtres de prix et de tri -->
     <div class="filters-container">
       <input v-model.number="minPrice" type="number" placeholder="Prix min" />
       <input v-model.number="maxPrice" type="number" placeholder="Prix max" />
@@ -10,6 +13,8 @@
         <option value="desc">Décroissant</option>
       </select>
     </div>
+
+    <!-- Conteneurs pour la recherche et le filtrage par catégorie -->
     <div class="search-and-filter-container">
       <div class="search-container">
         <input v-model="searchQuery" type="text" placeholder="Mots clés..." class="search-input"/>
@@ -23,8 +28,11 @@
         </select>
       </div>
     </div>
+
+    <!-- Bouton pour déclencher la recherche -->
     <button @click="searchProducts" class="search-button">Recherche</button>
 
+    <!-- Affichage des produits ou message de chargement -->
     <div v-if="isLoading">
       <p>Chargement en cours...</p>
     </div>
@@ -36,6 +44,8 @@
         <p>Aucun produit à afficher.</p>
       </div>
     </div>
+
+    <!-- Composant de pagination -->
     <Pagination
     :current-page="currentPage"
     :total-pages="totalPages"
@@ -49,6 +59,7 @@ import ProductItem from '../components/Products/ProductItem.vue';
 import Pagination from '../components/Products/PaginationPage.vue';
 import getAuthenticationToken from '../api/getApiKey';
 
+// Déclaration des variables réactives pour stocker les informations et l'état du composant
 const products = ref([]);
 const currentPage = ref(1);
 const itemsPerPage = 9;
@@ -60,6 +71,7 @@ const sortOrder = ref('');
 const categories = ref([]);
 const selectedCategory = ref('');
 
+// Produits paginés et nombre total de pages
 const paginatedProducts = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
   return products.value.slice(startIndex, startIndex + itemsPerPage);
@@ -67,6 +79,7 @@ const paginatedProducts = computed(() => {
 
 const totalPages = computed(() => Math.ceil(products.value.length / itemsPerPage));
 
+// Fonctions pour récupérer les détails des produits et des catégories
 const fetchProductDetails = async (product) => {
   const token = await getAuthenticationToken();
   if (!token) return product;
@@ -178,11 +191,13 @@ const fetchProducts = async () => {
   }
 };
 
+// Récupération des données lors du montage du composant
 onMounted(async () => {
   await fetchCategories();
   await fetchProducts();
 });
 
+// Fonctions pour changer de page et rechercher des produits
 const changePage = (newPage) => {
   currentPage.value = newPage;
   fetchProducts();

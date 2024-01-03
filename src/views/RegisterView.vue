@@ -1,12 +1,16 @@
 <template>
+  <!-- Conteneur principal pour la page d'inscription -->
   <div class="login-container">
     <h1>Créer son compte</h1>
 
+    <!-- Affichage des messages de chargement, d'erreur ou de réussite -->
     <div v-if="loading" class="loading">Chargement...</div>
     <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     <div v-if="message" class="message">{{ message }}</div>
 
+    <!-- Formulaire d'inscription -->
     <form @submit.prevent="register">
+      <!-- Champs pour les informations de l'utilisateur -->
       <div class="form-group">
         <label for="fullName">Nom et prénom:</label>
         <input type="text" id="fullName" v-model="registerData.fullName" required>
@@ -23,6 +27,7 @@
         <label for="passwordconf">Confirmer le mot de passe:</label>
         <input type="password" id="passwordconf" v-model="registerData.passwordconf" required>
       </div>
+      <!-- Bouton pour soumettre le formulaire -->
       <button type="submit">Créer son compte</button>
     </form>
   </div>
@@ -45,15 +50,18 @@ const registerData = ref({
   passwordconf: '',
 });
 
+// Fonction pour valider le mot de passe
 function validatePassword(password) {
   return password.length >= 8;
 }
 
+// Fonction pour gérer l'inscription de l'utilisateur
 const register = async () => {
   loading.value = true;
   errorMessage.value = '';
   message.value = '';
 
+  // Validation du mot de passe et confirmation
   if (registerData.value.password !== registerData.value.passwordconf) {
     errorMessage.value = 'Les mots de passe ne correspondent pas.';
     loading.value = false;
@@ -67,6 +75,7 @@ const register = async () => {
   }
 
   try {
+    // Tentative d'inscription à l'API
     const token = await getAuthenticationToken();
 
     const response = await fetch('http://localhost/api/users', {
@@ -88,6 +97,7 @@ const register = async () => {
       return;
     }
 
+    // Redirection vers la page de connexion après inscription réussie
     message.value = 'Inscription réussie. Redirection vers la connexion...';
     await router.push('/login');
   } catch (error) {

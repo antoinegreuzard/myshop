@@ -1,16 +1,17 @@
 <template>
+  <!-- Conteneur principal pour la gestion des utilisateurs -->
   <div class="user-management container">
     <h1>Gestion des Utilisateurs</h1>
 
     <!-- Bouton pour ajouter un nouvel utilisateur -->
     <button @click="toggleAddMode">Ajouter un Utilisateur</button>
 
-    <!-- Indicateur de chargement et messages -->
+    <!-- Indicateurs de chargement et messages d'erreur ou de succès -->
     <div v-if="isLoading" class="loading">Chargement des utilisateurs...</div>
     <div v-if="message" class="message">{{ message }}</div>
     <div v-if="error" class="error">{{ error }}</div>
 
-    <!-- Liste des utilisateurs -->
+    <!-- Liste des utilisateurs avec options de modification et de suppression -->
     <div v-else class="users-list">
       <h2>Utilisateurs</h2>
       <ul>
@@ -26,12 +27,14 @@
     <div class="user-form" v-if="isEditMode || isAddMode">
       <h2>{{ isEditMode ? 'Modifier l\'Utilisateur' : 'Ajouter un Utilisateur' }}</h2>
       <form @submit.prevent="isEditMode ? updateUser() : addUser()">
+        <!-- Champs du formulaire pour les détails de l'utilisateur -->
         <label for="fullName">Nom Complet</label>
         <input id="fullName" type="text" v-model="currentUser.fullName" required>
 
         <label for="email">Email</label>
         <input id="email" type="email" v-model="currentUser.email" required>
 
+        <!-- Champ de mot de passe, visible uniquement en mode ajout -->
         <label for="password" v-if="isAddMode">Mot de Passe</label>
         <input
         id="password"
@@ -39,12 +42,14 @@
         v-model="currentUser.password"
         v-if="isAddMode" required>
 
+        <!-- Sélecteur de rôles pour l'utilisateur -->
         <label for="roles">Rôles</label>
         <select id="roles" v-model="currentUser.roles" multiple>
           <option value="ROLE_ADMIN">Admin</option>
           <option value="ROLE_USER">Utilisateur</option>
         </select>
 
+        <!-- Bouton de soumission du formulaire -->
         <input
           type="submit"
           :value="isEditMode ? 'Enregistrer les modifications' : 'Ajouter un Utilisateur'"
@@ -58,6 +63,7 @@
 import { reactive, ref, onMounted } from 'vue';
 import getAuthenticationToken from '../../api/getApiKey';
 
+// État réactif pour stocker les utilisateurs et l'état actuel de l'interface utilisateur
 const users = ref([]);
 const currentUser = reactive({
   id: null, email: '', roles: [], fullName: '', password: '',
@@ -68,9 +74,11 @@ const isLoading = ref(false);
 const message = ref('');
 const error = ref('');
 
+// URL de base pour les requêtes API
 const apiBaseUrl = 'http://localhost/api/users';
 let headers = {};
 
+// Fonctions pour récupérer et manipuler les données des utilisateurs
 const fetchUsers = async () => {
   isLoading.value = true;
   try {
@@ -171,6 +179,7 @@ const deleteUser = async (id) => {
   }
 };
 
+// Initialisation lors du montage du composant
 onMounted(initialize);
 </script>
 

@@ -1,22 +1,26 @@
 <template>
+  <!-- Composant de navigation de pagination avec accessibilité ARIA -->
   <nav aria-label="Page navigation" class="nav-pagination">
     <ul class="pagination">
+      <!-- Bouton de page précédente, désactivé si sur la première page -->
       <li class="page-item" :class="{ disabled: currentPage <= 1 }">
-        <a class="page-link"
-        href="#"
+        <a
+        class="page-link" href="#"
         aria-label="Previous"
         @click.prevent="changePage(currentPage - 1)">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
+      <!-- Boutons de pagination pour chaque page -->
       <li class="page-item"
       v-for="page in totalPages" :key="page"
       :class="{ active: page === currentPage }">
         <a class="page-link" href="#" @click.prevent="selectPage(page)">{{ page }}</a>
       </li>
-      <li class="page-item"
-      :class="{ disabled: currentPage >= totalPages }">
-        <a class="page-link"
+      <!-- Bouton de page suivante, désactivé si sur la dernière page -->
+      <li class="page-item" :class="{ disabled: currentPage >= totalPages }">
+        <a
+        class="page-link"
         href="#"
         aria-label="Next"
         @click.prevent="changePage(currentPage + 1)">
@@ -30,6 +34,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
+// Définition des propriétés du composant de pagination
 const props = defineProps({
   currentPage: {
     type: Number,
@@ -41,14 +46,17 @@ const props = defineProps({
   },
 });
 
+// Déclaration de l'événement personnalisé pour le changement de page
 const emit = defineEmits(['change-page']);
 
+// Fonction pour sélectionner une page spécifique
 const selectPage = (page) => {
   if (page !== props.currentPage) {
     emit('change-page', page);
   }
 };
 
+// Fonction pour changer de page en respectant les limites
 const changePage = (page) => {
   const newPage = Math.max(1, Math.min(page, props.totalPages));
   selectPage(newPage);

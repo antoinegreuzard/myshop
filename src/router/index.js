@@ -9,6 +9,7 @@ import ProductsEdit from '../views/admin/ProductsEdit.vue';
 import CategoriesEdit from '../views/admin/CategoriesEdit.vue';
 import UsersEdit from '../views/admin/UsersEdit.vue';
 
+// Vérifie si l'utilisateur est authentifié en examinant le token stocké localement
 function userIsAuthenticated() {
   const token = localStorage.getItem('myshop_userToken');
   const id = localStorage.getItem('myshop_userId');
@@ -30,12 +31,14 @@ function userIsAuthenticated() {
     .catch(() => ({ isAuthenticated: false }));
 }
 
+// Efface les données d'authentification et informe les autres parties de l'application
 function clearAuthenticationData() {
   localStorage.removeItem('myshop_userToken');
   localStorage.removeItem('myshop_userId');
   window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
 }
 
+// Configuration des routes de l'application
 const routes = [
   {
     path: '/',
@@ -109,6 +112,7 @@ const router = createRouter({
   routes,
 });
 
+// Navigation Guard pour gérer les titres de page, l'authentification et les redirections
 router.beforeEach(async (to, from, next) => {
   const pageTitle = to.meta.title || to.name || 'MyShop';
   const pageDescription = to.meta.description || 'Description par défaut de la page.';

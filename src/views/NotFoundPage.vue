@@ -1,9 +1,11 @@
 <template>
-    <div class="not-found">
-        <h1>404</h1>
-        <p>Désolé, la page que vous cherchez n'existe pas.</p>
-        <router-link :to="{ name: 'Home' }">Retour à l'accueil</router-link>
-    </div>
+  <!-- Conteneur principal pour la page 'Page Non Trouvée' -->
+  <div class="not-found">
+    <h1>404</h1>
+    <p>Désolé, la page que vous cherchez n'existe pas.</p>
+    <!-- Lien pour revenir à la page d'accueil -->
+    <router-link :to="{ name: 'Home' }">Retour à l'accueil</router-link>
+  </div>
 </template>
 
 <style scoped lang="scss">
