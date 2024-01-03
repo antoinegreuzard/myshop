@@ -22,20 +22,27 @@
             {{ category.name }}
           </li>
         </ul>
+        <ShareProduct :productUrl="productUrl" :productName="product.name" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import getAuthenticationToken from '../api/getApiKey';
+import ShareProduct from '../components/Products/ShareProduct.vue';
 
 // Utilisation du routeur Vue pour accéder aux paramètres de la route
 const route = useRoute();
 const isLoading = ref(false);
 const product = ref({});
+
+// Création de la constante productUrl
+const productUrl = computed(() => `${window.location.origin}${route.fullPath}`);
+
+console.log(productUrl.value);
 
 // Fonctions pour récupérer les détails des catégories et de l'image du produit
 const fetchCategory = async (categoryUrl, token) => {
