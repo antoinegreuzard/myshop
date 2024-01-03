@@ -55,53 +55,59 @@ const changePage = (page) => {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .nav-pagination {
     display: flex;
-    margin: 2rem auto 0;
+    margin: 2rem auto;
     flex-direction: column;
     align-items: center;
 
-  .pagination {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding-left: 0;
 
-    .page-item {
-      margin: 0 2px;
-
-      .page-link {
-        display: block;
-        padding: 0.5rem 0.75rem;
-        color: #007bff;
-        text-decoration: none;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-
-        &:hover {
-          color: #0056b3;
-          background-color: #e9ecef;
-          border-color: #dee2e6;
+        @media only screen and (max-width: 768px) {
+            flex-wrap: wrap;
+            justify-content: center;
         }
-      }
 
-      &.disabled {
-        .page-link {
-          color: #6c757d;
-          pointer-events: none;
-          background-color: #fff;
-          border-color: #dee2e6;
-        }
-      }
+        .page-item {
+            margin: 0 2px;
 
-      &.active {
-        .page-link {
-          color: #fff;
-          background-color: #007bff;
-          border-color: #007bff;
+            .page-link {
+                display: block;
+                padding: 0.5rem 0.75rem;
+                color: #007bff;
+                text-decoration: none;
+                background-color: #fff;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+
+                &:hover {
+                    color: #0056b3;
+                    background-color: #e9ecef;
+                    border-color: #dee2e6;
+                }
+            }
+
+            &.disabled {
+                .page-link {
+                    color: #6c757d;
+                    pointer-events: none;
+                    background-color: #fff;
+                    border-color: #dee2e6;
+                }
+            }
+
+            &.active {
+                .page-link {
+                    color: #fff;
+                    background-color: #007bff;
+                    border-color: #007bff;
+                }
+            }
         }
-      }
     }
-  }
 }
 </style>

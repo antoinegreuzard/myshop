@@ -99,51 +99,77 @@ const login = async () => {
   margin: 50px auto;
   padding: 20px;
   text-align: center;
-}
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #333;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #555;
+  h1 {
+    margin-bottom: 1.5rem;
   }
-}
 
-.loading {
-  color: #007bff;
-}
+  .form-group {
+    margin-bottom: 20px;
 
-.error {
-  color: red;
-  margin-top: 10px;
-}
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
 
-.message {
-  color: green;
-  margin-top: 10px;
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #555;
+    }
+  }
+
+  .loading, .error, .message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .loading {
+    color: #007bff;
+  }
+
+  .error {
+    color: #d9534f;
+    background-color: #f2dede;
+  }
+
+  .message {
+    color: #3c763d;
+    background-color: #dff0d8;
+  }
+
+  router-link {
+    display: block;
+    margin-top: 20px;
+    color: #007bff;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 </style>

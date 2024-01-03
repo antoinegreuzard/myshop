@@ -114,32 +114,55 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-
 .product {
   margin-block: 3rem;
-}
 
-.columns {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-}
+  .columns {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
 
-.column {
-  flex: 1;
-  padding: 0;
-}
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
 
-.image-column {
-  max-width: 50%;
-  img {
-    width: 100%;
-    height: auto;
-    display: block;
+    .column {
+      flex: 1;
+      padding: 0;
+
+      &.image-column {
+        max-width: 100%;
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+      }
+
+      &.content-column {
+        max-width: 100%;
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 1rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+
+          li {
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
   }
-}
-
-.content-column {
-  max-width: 50%;
 }
 </style>

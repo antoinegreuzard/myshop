@@ -62,42 +62,59 @@ onUnmounted(() => {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    > div {
+    > div.container {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
 
-      > .column-right {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-      }
+        @media only screen and (max-width: 768px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        > .column-right {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+
+            @media only screen and (max-width: 768px) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     }
 }
 
 .logo-container {
     .logo {
         height: 50px;
+        @media only screen and (max-width: 768px) {
+            height: 40px;
+        }
     }
 }
 
 .navigation {
-    height: fit-content;
     ul {
         list-style: none;
         display: flex;
         margin: 0;
         padding: 0;
-    }
 
-    li a {
-        padding: 0 1em;
-        text-decoration: none;
-        color: #333;
+        @media only screen and (max-width: 768px) {
+            flex-direction: column;
+            width: 100%;
+        }
 
-        &:hover {
-            text-decoration: underline;
+        li a {
+            padding: 0 1em;
+            text-decoration: none;
+            color: #333;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }

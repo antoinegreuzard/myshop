@@ -24,10 +24,10 @@
       <h2>{{ isEditMode ? 'Modifier le Produit' : 'Ajouter un Produit' }}</h2>
       <form @submit.prevent="isEditMode ? updateProduct() : addProduct()">
         <label for="name">Nom du Produit</label>
-        <input id="name" v-model="currentProduct.name" required>
+        <input id="name" type="text" v-model="currentProduct.name" required>
 
         <label for="description">Description</label>
-        <input id="description" v-model="currentProduct.description" required>
+        <input id="description" type="text" v-model="currentProduct.description" required>
 
         <label for="price">Prix</label>
         <input id="price" type="number" v-model="currentProduct.price" required>
@@ -240,10 +240,12 @@ onMounted(initialize);
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  background-color: #fff;
 
   h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 2rem;
   }
 
   .products-list, .product-form {
@@ -251,6 +253,7 @@ onMounted(initialize);
 
     h2 {
       color: #555;
+      margin-bottom: 1rem;
     }
 
     ul {
@@ -262,6 +265,9 @@ onMounted(initialize);
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 4px;
 
         button {
           margin-left: 10px;
@@ -271,6 +277,7 @@ onMounted(initialize);
           background-color: #007bff;
           color: white;
           cursor: pointer;
+          transition: background-color 0.3s;
 
           &:hover {
             background-color: #0056b3;
@@ -282,25 +289,33 @@ onMounted(initialize);
     form {
       display: flex;
       flex-direction: column;
+      max-width: 500px;
 
       label {
         margin-bottom: 5px;
       }
 
-      input[type="text"], input[type="number"], input[type="submit"], select {
+      input[type="text"], input[type="number"], select {
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 4px;
         border: 1px solid #ddd;
+        width: 100%;
       }
 
       input[type="submit"] {
-        background-color: #28a745;
+        margin-top: 10px;
+        background-color: #4caf50;
         color: white;
+        padding: 10px 15px;
+        border: none;
         cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
         &:hover {
-          background-color: #218838;
+          background-color: #45a049;
         }
       }
     }
@@ -333,20 +348,27 @@ onMounted(initialize);
     max-width: 100%;
     max-height: 200px;
     margin-top: 10px;
+    border-radius: 4px;
   }
 
   .loading, .message, .error {
     text-align: center;
     font-size: 1.2em;
     margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
   }
 
   .message {
-    color: green;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #3c763d;
   }
 
   .error {
-    color: red;
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #d9534f;
   }
 }
 </style>

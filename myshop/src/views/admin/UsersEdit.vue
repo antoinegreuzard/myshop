@@ -27,7 +27,7 @@
       <h2>{{ isEditMode ? 'Modifier l\'Utilisateur' : 'Ajouter un Utilisateur' }}</h2>
       <form @submit.prevent="isEditMode ? updateUser() : addUser()">
         <label for="fullName">Nom Complet</label>
-        <input id="fullName" v-model="currentUser.fullName" required>
+        <input id="fullName" type="text" v-model="currentUser.fullName" required>
 
         <label for="email">Email</label>
         <input id="email" type="email" v-model="currentUser.email" required>
@@ -180,10 +180,27 @@ onMounted(initialize);
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  background-color: #fff;
 
   h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    margin-top: 1rem;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 
   .users-list, .user-form {
@@ -191,6 +208,7 @@ onMounted(initialize);
 
     h2 {
       color: #555;
+      margin-bottom: 1rem;
     }
 
     ul {
@@ -202,15 +220,18 @@ onMounted(initialize);
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 4px;
 
         button {
-          margin-left: 10px;
           padding: 5px 10px;
           border: none;
           border-radius: 4px;
           background-color: #007bff;
           color: white;
           cursor: pointer;
+          transition: background-color 0.3s;
 
           &:hover {
             background-color: #0056b3;
@@ -222,6 +243,7 @@ onMounted(initialize);
     form {
       display: flex;
       flex-direction: column;
+      max-width: 500px;
 
       label {
         margin-bottom: 5px;
@@ -230,21 +252,26 @@ onMounted(initialize);
       input[type="email"],
       input[type="text"],
       input[type="password"],
-      input[type="submit"],
       select {
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 4px;
         border: 1px solid #ddd;
+        width: 100%;
       }
 
       input[type="submit"] {
-        background-color: #28a745;
+        background-color: #4caf50;
         color: white;
+        padding: 10px 15px;
+        border: none;
         cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
         &:hover {
-          background-color: #218838;
+          background-color: #45a049;
         }
       }
     }
@@ -254,14 +281,20 @@ onMounted(initialize);
     text-align: center;
     font-size: 1.2em;
     margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
   }
 
   .message {
-    color: green;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #3c763d;
   }
 
   .error {
-    color: red;
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #d9534f;
   }
 }
 </style>

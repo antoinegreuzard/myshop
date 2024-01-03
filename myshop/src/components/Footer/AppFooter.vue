@@ -46,11 +46,21 @@ onUnmounted(() => {
     display: flex;
     justify-content: space-around;
     padding: 1em;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &-section {
     h3 {
       margin-bottom: 0.5em;
+      font-family: 'Georgia', serif;
+    }
+
+    p {
+      margin-bottom: 1em;
     }
 
     a {
@@ -82,6 +92,10 @@ onUnmounted(() => {
   &-bottom {
     margin-top: 1em;
     font-size: 0.8em;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 1em;
+    }
   }
 }
 </style>

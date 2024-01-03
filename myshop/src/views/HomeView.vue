@@ -208,14 +208,36 @@ const searchProducts = () => {
     gap: 1rem;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+
+    .product-item {
+      flex: 1 0 21%;
+      max-width: calc(25% - 1rem);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #fff;
+    }
   }
 
-  .search-and-filter-container {
+  .search-and-filter-container, .filters-container {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    input[type="number"], input[type="text"], select {
+      padding: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 200px;
+    }
   }
 
   .search-button {
@@ -226,29 +248,9 @@ const searchProducts = () => {
     color: white;
     cursor: pointer;
     margin-bottom: 3rem;
-  }
-
-  .filters-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-
-    input[type="number"] {
-      padding: 0.5em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 150px;
-    }
-
-    select {
-      padding: 0.5em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: white;
-      cursor: pointer;
-    }
+    width: 100%;
+    max-width: 200px;
   }
 }
+
 </style>

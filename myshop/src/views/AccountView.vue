@@ -118,8 +118,11 @@ onMounted(fetchAccountDetails);
   width: 400px;
   margin: auto;
   padding: 20px;
-  border: 1px solid black;
+  border: 1px solid #ddd;
   margin-block: 3rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 
   .loading-message {
     color: #4caf50;
@@ -127,23 +130,29 @@ onMounted(fetchAccountDetails);
   }
 
   .error-message {
-    color: red;
-    margin-bottom: 10px;
+    color: #d9534f;
+    background-color: #f2dede;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
   }
 
   .form-group {
     margin-bottom: 15px;
-  }
 
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
 
-  input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+    input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
   }
 
   button {
@@ -153,6 +162,8 @@ onMounted(fetchAccountDetails);
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
     &:hover {
       background-color: #45a049;

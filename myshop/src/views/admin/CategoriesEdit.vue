@@ -24,7 +24,7 @@
       <h2>{{ isEditMode ? 'Modifier la Catégorie' : 'Ajouter une Catégorie' }}</h2>
       <form @submit.prevent="isEditMode ? updateCategory() : addCategory()">
         <label for="name">Nom de la Catégorie</label>
-        <input id="name" v-model="currentCategory.name" required>
+        <input id="name" v-model="currentCategory.name" type="text" required>
         <input
           type="submit"
           :value="isEditMode ? 'Enregistrer les modifications' : 'Ajouter une Catégorie'"
@@ -140,10 +140,32 @@ onMounted(initialize);
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  background-color: #fff;
 
   h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 2rem;
+  }
+
+  .loading, .error, .message {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  .error {
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #d9534f;
+  }
+
+  .message {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #3c763d;
   }
 
   .categories-list, .category-form {
@@ -151,6 +173,7 @@ onMounted(initialize);
 
     h2 {
       color: #555;
+      margin-bottom: 1rem;
     }
 
     ul {
@@ -171,6 +194,7 @@ onMounted(initialize);
           background-color: #007bff;
           color: white;
           cursor: pointer;
+          transition: background-color 0.3s;
 
           &:hover {
             background-color: #0056b3;
@@ -182,43 +206,35 @@ onMounted(initialize);
     form {
       display: flex;
       flex-direction: column;
+      max-width: 500px;
 
       label {
         margin-bottom: 5px;
       }
 
-      input[type="text"], input[type="submit"] {
+      input[type="text"] {
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 4px;
         border: 1px solid #ddd;
+        width: 100%;
       }
 
       input[type="submit"] {
-        background-color: #28a745;
+        background-color: #4caf50;
         color: white;
+        padding: 10px 15px;
+        border: none;
         cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
         &:hover {
-          background-color: #218838;
+          background-color: #45a049;
         }
       }
     }
-  }
-
-  .loading, .error, .message {
-    text-align: center;
-    font-size: 1.2em;
-    color: #666;
-    margin-top: 10px;
-  }
-
-  .error {
-    color: red;
-  }
-
-  .message {
-    color: green;
   }
 }
 </style>
