@@ -2,12 +2,14 @@
   <div class="category-management container">
     <h1>Gestion des Catégories</h1>
 
-    <!-- Loading Indicator for Fetching Categories -->
+    <!-- Indicateurs de chargement et messages -->
     <div v-if="isLoading" class="loading">Chargement des catégories...</div>
+    <div v-if="error" class="error">{{ error }}</div>
+    <div v-if="message" class="message">{{ message }}</div>
 
-    <!-- List Categories -->
+    <!-- Liste des Catégories -->
     <div v-else class="categories-list">
-      <h2>Categories</h2>
+      <h2>Catégories</h2>
       <ul>
         <li v-for="category in categories" :key="category.id">
           {{ category.name }}
@@ -17,15 +19,16 @@
       </ul>
     </div>
 
-    <!-- Add/Edit Category Form -->
+    <!-- Formulaire d'Ajout/Modification de Catégorie -->
     <div class="category-form">
       <h2>{{ isEditMode ? 'Modifier la Catégorie' : 'Ajouter une Catégorie' }}</h2>
       <form @submit.prevent="isEditMode ? updateCategory() : addCategory()">
         <label for="name">Nom de la Catégorie</label>
         <input id="name" v-model="currentCategory.name" required>
         <input
-        type="submit"
-        :value="isEditMode ? 'Enregistrer les modifications' : 'Ajouter une Catégorie'">
+          type="submit"
+          :value="isEditMode ? 'Enregistrer les modifications' : 'Ajouter une Catégorie'"
+        >
       </form>
     </div>
   </div>
@@ -39,6 +42,8 @@ const categories = ref([]);
 const currentCategory = reactive({ id: null, name: '' });
 const isEditMode = ref(false);
 const isLoading = ref(false);
+const error = ref('');
+const message = ref('');
 
 const apiBaseUrl = 'http://localhost/api/categories';
 let headers = {};
@@ -49,12 +54,13 @@ const fetchCategories = async () => {
     const response = await fetch(apiBaseUrl, { headers });
     const data = await response.json();
     categories.value = data['hydra:member'];
-  } catch (error) {
-    console.error('Error fetching categories:', error);
+  } catch (e) {
+    error.value = `Erreur lors du chargement des catégories: ${e.message}`;
   } finally {
     isLoading.value = false;
   }
 };
+
 const initialize = async () => {
   isLoading.value = true;
   const token = await getAuthenticationToken();
@@ -69,6 +75,7 @@ const resetForm = () => {
   currentCategory.name = '';
   isEditMode.value = false;
 };
+
 const addCategory = async () => {
   try {
     await fetch(apiBaseUrl, {
@@ -78,8 +85,11 @@ const addCategory = async () => {
     });
     await fetchCategories();
     resetForm();
-  } catch (error) {
-    console.error('Error adding category:', error);
+    message.value = 'Catégorie ajoutée avec succès.';
+    error.value = '';
+  } catch (e) {
+    error.value = `Erreur lors de l'ajout de la catégorie: ${e.message}`;
+    message.value = '';
   }
 };
 
@@ -98,8 +108,11 @@ const updateCategory = async () => {
     });
     await fetchCategories();
     resetForm();
-  } catch (error) {
-    console.error('Error updating category:', error);
+    message.value = 'Catégorie mise à jour avec succès.';
+    error.value = '';
+  } catch (e) {
+    error.value = `Erreur lors de la mise à jour de la catégorie: ${e.message}`;
+    message.value = '';
   }
 };
 
@@ -110,15 +123,18 @@ const deleteCategory = async (id) => {
       headers,
     });
     await fetchCategories();
-  } catch (error) {
-    console.error('Error deleting category:', error);
+    message.value = 'Catégorie supprimée avec succès.';
+    error.value = '';
+  } catch (e) {
+    error.value = `Erreur lors de la suppression de la catégorie: ${e.message}`;
+    message.value = '';
   }
 };
 
 onMounted(initialize);
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .category-management {
   margin: 3rem auto;
   padding: 20px;
@@ -190,10 +206,19 @@ onMounted(initialize);
     }
   }
 
-  .loading {
+  .loading, .error, .message {
     text-align: center;
     font-size: 1.2em;
     color: #666;
+    margin-top: 10px;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .message {
+    color: green;
   }
 }
 </style>
