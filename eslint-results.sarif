@@ -1,0 +1,109 @@
+{
+  "version": "2.1.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.5",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "ESLint",
+          "informationUri": "https://eslint.org",
+          "rules": [],
+          "version": "8.56.0"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/App.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/api/getApiKey.js"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/components/Footer/AppFooter.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/components/Header/AppHeader.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/components/Products/PaginationPage.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/components/Products/ProductItem.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/main.js"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/router/index.js"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/AccountView.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/HomeView.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/LoginView.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/NotFoundPage.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/ProductView.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/RegisterView.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/admin/CategoriesEdit.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/admin/ProductsEdit.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/src/views/admin/UsersEdit.vue"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///Users/antoinegreuzard/PhpstormProjects/myshop/vite.config.js"
+          }
+        }
+      ],
+      "results": []
+    }
+  ]
+}
