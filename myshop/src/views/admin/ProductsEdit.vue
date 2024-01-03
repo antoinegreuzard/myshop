@@ -232,7 +232,7 @@ const getImageUrl = (imageId) => {
 onMounted(initialize);
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .product-management {
   margin: 3rem auto;
   padding: 20px;

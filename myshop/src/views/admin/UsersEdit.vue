@@ -174,7 +174,7 @@ const deleteUser = async (id) => {
 onMounted(initialize);
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .user-management {
   margin: 3rem auto;
   padding: 20px;
