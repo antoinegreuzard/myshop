@@ -4,7 +4,6 @@
     <div class="filters-container">
       <input v-model.number="minPrice" type="number" placeholder="Prix min" />
       <input v-model.number="maxPrice" type="number" placeholder="Prix max" />
-
       <select v-model="sortOrder">
         <option value="" selected>Ordre par titre des produits</option>
         <option value="asc">Croissant</option>
@@ -13,11 +12,7 @@
     </div>
     <div class="search-and-filter-container">
       <div class="search-container">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Mots clés..."
-          class="search-input"/>
+        <input v-model="searchQuery" type="text" placeholder="Mots clés..." class="search-input"/>
       </div>
       <div class="category-filter">
         <select v-model="selectedCategory">
@@ -29,6 +24,7 @@
       </div>
     </div>
     <button @click="searchProducts" class="search-button">Recherche</button>
+
     <div v-if="isLoading">
       <p>Chargement en cours...</p>
     </div>
@@ -41,9 +37,9 @@
       </div>
     </div>
     <Pagination
-      :current-page="currentPage"
-      :total-pages="totalPages"
-      @change-page="changePage"></Pagination>
+    :current-page="currentPage"
+    :total-pages="totalPages"
+    @change-page="changePage"></Pagination>
   </main>
 </template>
 
@@ -56,7 +52,7 @@ import getAuthenticationToken from '../api/getApiKey';
 const products = ref([]);
 const currentPage = ref(1);
 const itemsPerPage = 9;
-const isLoading = ref(false);
+const isLoading = ref(true);
 const searchQuery = ref('');
 const minPrice = ref();
 const maxPrice = ref();
