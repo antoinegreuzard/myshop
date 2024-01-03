@@ -7,7 +7,7 @@
           Explorez notre large gamme de produits
           et profitez d'une expérience d'achat exceptionnelle.
         </p>
-        <router-link v-if="userToken" :to="{ name: 'Logout' }">Déconnexion</router-link>
+        <router-link v-if="isAuthenticated" :to="{ name: 'Logout' }">Déconnexion</router-link>
       </section>
     </div>
 
