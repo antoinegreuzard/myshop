@@ -11,7 +11,8 @@ import UsersEdit from '../views/admin/UsersEdit.vue';
 
 function userIsAuthenticated() {
   const token = localStorage.getItem('myshop_userToken');
-  if (!token) return Promise.resolve({ isAuthenticated: false });
+  const id = localStorage.getItem('myshop_userId');
+  if (!token && !id) return Promise.resolve({ isAuthenticated: false });
 
   return fetch('http://localhost/api/users', {
     method: 'GET',
@@ -27,6 +28,12 @@ function userIsAuthenticated() {
       throw new Error('Non-authenticated');
     })
     .catch(() => ({ isAuthenticated: false }));
+}
+
+function clearAuthenticationData() {
+  localStorage.removeItem('myshop_userToken');
+  localStorage.removeItem('myshop_userId');
+  window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
 }
 
 const routes = [
@@ -71,6 +78,7 @@ const routes = [
     name: 'Logout',
     beforeEnter: (to, from, next) => {
       localStorage.removeItem('myshop_userToken');
+      localStorage.removeItem('myshop_userId');
       window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
       next({ name: 'Login' });
     },
@@ -102,29 +110,18 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  let pageTitle = to.name || 'MyShop';
+  const pageTitle = to.meta.title || to.name || 'MyShop';
   const pageDescription = to.meta.description || 'Description par défaut de la page.';
-
-  if (to.meta.title) {
-    pageTitle = to.meta.title;
-  }
-
   document.title = `${pageTitle} - MyShop`;
   document.querySelector('meta[name="description"]').content = pageDescription;
 
   const authStatus = await userIsAuthenticated();
-  const isAuthRoute = to.name === 'Login' || to.name === 'Register';
 
-  if (authStatus.isAuthenticated && isAuthRoute) {
+  if (authStatus.isAuthenticated && (to.name === 'Login' || to.name === 'Register')) {
     next({ name: 'Account' });
-  } else if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!authStatus.isAuthenticated) {
-      localStorage.removeItem('myshop_userToken');
-      window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: false } }));
-      next({ name: 'Login' });
-    } else {
-      next();
-    }
+  } else if (to.matched.some((record) => record.meta.requiresAuth) && !authStatus.isAuthenticated) {
+    clearAuthenticationData();
+    next({ name: 'Login' });
   } else {
     next();
   }

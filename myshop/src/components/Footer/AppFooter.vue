@@ -20,18 +20,18 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const userToken = ref(localStorage.getItem('myshop_userToken') !== null);
+const isAuthenticated = ref(false);
+
+const updateAuthStatus = (event) => {
+  isAuthenticated.value = event.detail.isLoggedIn;
+};
 
 onMounted(() => {
-  const updateAuthStatus = (event) => {
-    userToken.value = event.detail.isLoggedIn;
-  };
-
   window.addEventListener('auth-change', updateAuthStatus);
+});
 
-  onUnmounted(() => {
-    window.removeEventListener('auth-change', updateAuthStatus);
-  });
+onUnmounted(() => {
+  window.removeEventListener('auth-change', updateAuthStatus);
 });
 </script>
 

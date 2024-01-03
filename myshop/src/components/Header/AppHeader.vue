@@ -43,19 +43,16 @@ import logo from '../../assets/images/logo.png';
 
 const isAuthenticated = ref(false);
 
+const updateAuthStatus = (event) => {
+  isAuthenticated.value = event.detail.isLoggedIn;
+};
+
 onMounted(() => {
-  isAuthenticated.value = !!localStorage.getItem('myshop_userToken');
-  window.addEventListener('auth-change', (event) => {
-    isAuthenticated.value = event.detail.isLoggedIn;
-  });
+  window.addEventListener('auth-change', updateAuthStatus);
 });
 
-function handleAuthChange(event) {
-  isAuthenticated.value = event.detail.isLoggedIn;
-}
-
 onUnmounted(() => {
-  window.removeEventListener('auth-change', handleAuthChange);
+  window.removeEventListener('auth-change', updateAuthStatus);
 });
 </script>
 
