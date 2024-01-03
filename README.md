@@ -56,7 +56,7 @@ yarn dev
 pnpm dev
 ```
 
-Ouvrez [http://localhost:3000](http://localhost:5173) pour voir l'application.
+Ouvrez [http://localhost:5173](http://localhost:5173) pour voir l'application.
 
 ## Structure du Projet
 
