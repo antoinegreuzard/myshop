@@ -55,7 +55,7 @@
 
         <div class="image-upload">
           <input type="file" @change="handleFileChange" accept="image/*">
-          <button @click="uploadImage" type="button">Upload Image</button>
+          <button @click="uploadImage" type="button">Upload Image (1 Mo max)</button>
         </div>
 
         <input
