@@ -117,13 +117,22 @@ router.beforeEach(async (to, from, next) => {
 
   const authStatus = await userIsAuthenticated();
 
-  if (authStatus.isAuthenticated && (to.name === 'Login' || to.name === 'Register')) {
-    next({ name: 'Account' });
-  } else if (to.matched.some((record) => record.meta.requiresAuth) && !authStatus.isAuthenticated) {
+  if (!authStatus.isAuthenticated) {
     clearAuthenticationData();
-    next({ name: 'Login' });
+
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+      next({ name: 'Login' });
+    } else {
+      next();
+    }
   } else {
-    next();
+    window.dispatchEvent(new CustomEvent('auth-change', { detail: { isLoggedIn: true } }));
+
+    if (to.name === 'Login' || to.name === 'Register') {
+      next({ name: 'Account' });
+    } else {
+      next();
+    }
   }
 });
 
