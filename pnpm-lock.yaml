@@ -37,7 +37,7 @@ dependencies:
     version: 3.4.30
   vue-router:
     specifier: '4'
-    version: 4.3.3(vue@3.4.30)
+    version: 4.4.0(vue@3.4.30)
 
 packages:
 
@@ -2374,8 +2374,8 @@ packages:
       - supports-color
     dev: false
 
-  /vue-router@4.3.3(vue@3.4.30):
-    resolution: {integrity: sha512-8Q+u+WP4N2SXY38FDcF2H1dUEbYVHVPtPCPZj/GTZx8RCbiB8AtJP9+YIxn4Vs0svMTNQcLIzka4GH7Utkx9xQ==}
+  /vue-router@4.4.0(vue@3.4.30):
+    resolution: {integrity: sha512-HB+t2p611aIZraV2aPSRNXf0Z/oLZFrlygJm+sZbdJaW6lcFqEDQwnzUBXn+DApw+/QzDU/I9TeWx9izEjTmsA==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
