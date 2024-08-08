@@ -37,7 +37,7 @@ dependencies:
     version: 3.4.34
   vue-router:
     specifier: '4'
-    version: 4.4.0(vue@3.4.34)
+    version: 4.4.3(vue@3.4.34)
 
 packages:
 
@@ -640,8 +640,8 @@ packages:
       '@vue/shared': 3.4.34
     dev: false
 
-  /@vue/devtools-api@6.5.1:
-    resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==}
+  /@vue/devtools-api@6.6.3:
+    resolution: {integrity: sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==}
     dev: false
 
   /@vue/reactivity@3.4.34:
@@ -2365,12 +2365,12 @@ packages:
       - supports-color
     dev: false
 
-  /vue-router@4.4.0(vue@3.4.34):
-    resolution: {integrity: sha512-HB+t2p611aIZraV2aPSRNXf0Z/oLZFrlygJm+sZbdJaW6lcFqEDQwnzUBXn+DApw+/QzDU/I9TeWx9izEjTmsA==}
+  /vue-router@4.4.3(vue@3.4.34):
+    resolution: {integrity: sha512-sv6wmNKx2j3aqJQDMxLFzs/u/mjA9Z5LCgy6BE0f7yFWMjrPLnS/sPNn8ARY/FXw6byV18EFutn5lTO6+UsV5A==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
-      '@vue/devtools-api': 6.5.1
+      '@vue/devtools-api': 6.6.3
       vue: 3.4.34
     dev: false
 
