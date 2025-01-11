@@ -16,7 +16,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-vue": "^9.32.0",
-    "sass": "^1.83.0",
+    "sass": "^1.83.1",
     "vite": "^5.4.2",
     "vite-plugin-eslint": "^1.8.1",
     "vue": "^3.5.13",
