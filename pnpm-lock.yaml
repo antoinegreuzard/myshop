@@ -13,7 +13,7 @@ importers:
         version: 3.1.0
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
-        version: 5.2.3(vite@6.2.5(sass@1.86.0))(vue@3.5.13)
+        version: 5.2.3(vite@6.2.6(sass@1.86.0))(vue@3.5.13)
       eslint:
         specifier: ^9.22.0
         version: 9.22.0
@@ -30,11 +30,11 @@ importers:
         specifier: ^1.86.0
         version: 1.86.0
       vite:
-        specifier: ^6.2.5
-        version: 6.2.5(sass@1.86.0)
+        specifier: ^6.2.6
+        version: 6.2.6(sass@1.86.0)
       vite-plugin-eslint:
         specifier: ^1.8.1
-        version: 1.8.1(eslint@9.22.0)(vite@6.2.5(sass@1.86.0))
+        version: 1.8.1(eslint@9.22.0)(vite@6.2.6(sass@1.86.0))
       vue:
         specifier: ^3.5.13
         version: 3.5.13
@@ -1375,8 +1375,8 @@ packages:
       eslint: '>=7'
       vite: '>=2'
 
-  vite@6.2.5:
-    resolution: {integrity: sha512-j023J/hCAa4pRIUH6J9HemwYfjB5llR2Ps0CWeikOtdR8+pAURAk0DoJC5/mm9kd+UgdnIy7d6HE4EAvlYhPhA==}
+  vite@6.2.6:
+    resolution: {integrity: sha512-9xpjNl3kR4rVDZgPNdTL0/c6ao4km69a/2ihNQbcANz8RuCOK3hQBmLSJf3bRKVQjVMda+YvizNE8AwvogcPbw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -1801,9 +1801,9 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue@5.2.3(vite@6.2.5(sass@1.86.0))(vue@3.5.13)':
+  '@vitejs/plugin-vue@5.2.3(vite@6.2.6(sass@1.86.0))(vue@3.5.13)':
     dependencies:
-      vite: 6.2.5(sass@1.86.0)
+      vite: 6.2.6(sass@1.86.0)
       vue: 3.5.13
 
   '@vue/compiler-core@3.5.13':
@@ -2871,15 +2871,15 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-plugin-eslint@1.8.1(eslint@9.22.0)(vite@6.2.5(sass@1.86.0)):
+  vite-plugin-eslint@1.8.1(eslint@9.22.0)(vite@6.2.6(sass@1.86.0)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@types/eslint': 8.56.0
       eslint: 9.22.0
       rollup: 2.79.1
-      vite: 6.2.5(sass@1.86.0)
+      vite: 6.2.6(sass@1.86.0)
 
-  vite@6.2.5(sass@1.86.0):
+  vite@6.2.6(sass@1.86.0):
     dependencies:
       esbuild: 0.25.2
       postcss: 8.5.3
