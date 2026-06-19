@@ -13,7 +13,7 @@ importers:
         version: 3.1.0
       '@vitejs/plugin-vue':
         specifier: ^5.2.4
-        version: 5.2.4(vite@6.4.3(sass@1.100.0))(vue@3.5.35)
+        version: 5.2.4(vite@6.4.3(sass@1.101.0))(vue@3.5.35)
       eslint:
         specifier: ^9.39.2
         version: 9.39.2
@@ -27,14 +27,14 @@ importers:
         specifier: ^9.33.0
         version: 9.33.0(eslint@9.39.2)
       sass:
-        specifier: ^1.100.0
-        version: 1.100.0
+        specifier: ^1.101.0
+        version: 1.101.0
       vite:
         specifier: ^6.4.3
-        version: 6.4.3(sass@1.100.0)
+        version: 6.4.3(sass@1.101.0)
       vite-plugin-eslint:
         specifier: ^1.8.1
-        version: 1.8.1(eslint@9.39.2)(vite@6.4.3(sass@1.100.0))
+        version: 1.8.1(eslint@9.39.2)(vite@6.4.3(sass@1.101.0))
       vue:
         specifier: ^3.5.35
         version: 3.5.35
@@ -1518,8 +1518,8 @@ packages:
     resolution: {integrity: sha512-x/+Cz4YrimQxQccJf5mKEbIa1NzeCRNI5Ecl/ekmlYaampdNLPalVyIcCZNNH3MvmqBugV5TMYZXv0ljslUlaw==}
     engines: {node: '>= 0.4'}
 
-  sass@1.100.0:
-    resolution: {integrity: sha512-B5j0rYMlinhhOo9tjQebMVVn0TfyXAF+wB3b2ggZUuJ/is/Y+7+JGjirAMxHZ9Z3hIP98NPfamlAkBHa1lAaXQ==}
+  sass@1.101.0:
+    resolution: {integrity: sha512-OL3GoQyoUdDt843DpVmDO6y2k1sc5IhUDSpu8XucEI+35neq5QivZ1iuegnpraEVTJXlQGK1gl27zKcTLEPbQw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -2153,9 +2153,9 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue@5.2.4(vite@6.4.3(sass@1.100.0))(vue@3.5.35)':
+  '@vitejs/plugin-vue@5.2.4(vite@6.4.3(sass@1.101.0))(vue@3.5.35)':
     dependencies:
-      vite: 6.4.3(sass@1.100.0)
+      vite: 6.4.3(sass@1.101.0)
       vue: 3.5.35
 
   '@vue/compiler-core@3.5.35':
@@ -3468,7 +3468,7 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
-  sass@1.100.0:
+  sass@1.101.0:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.5
@@ -3724,15 +3724,15 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-plugin-eslint@1.8.1(eslint@9.39.2)(vite@6.4.3(sass@1.100.0)):
+  vite-plugin-eslint@1.8.1(eslint@9.39.2)(vite@6.4.3(sass@1.101.0)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@types/eslint': 8.56.0
       eslint: 9.39.2
       rollup: 2.79.1
-      vite: 6.4.3(sass@1.100.0)
+      vite: 6.4.3(sass@1.101.0)
 
-  vite@6.4.3(sass@1.100.0):
+  vite@6.4.3(sass@1.101.0):
     dependencies:
       esbuild: 0.25.2
       fdir: 6.4.4(picomatch@4.0.2)
@@ -3742,7 +3742,7 @@ snapshots:
       tinyglobby: 0.2.13
     optionalDependencies:
       fsevents: 2.3.3
-      sass: 1.100.0
+      sass: 1.101.0
 
   vue-eslint-parser@9.4.3(eslint@9.39.2):
     dependencies:
